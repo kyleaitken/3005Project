@@ -1,4 +1,4 @@
-package com.example.project.Entities;
+package com.example.project.Models;
 
 import java.time.LocalDate;
 
@@ -17,9 +17,10 @@ public class Member {
     public Member() {
     }
 
-    public Member(Long memberId, String email, String firstName, String lastName, LocalDate birthDate, String phone, String address, String emergencyPhone) {
+    public Member(Long memberId, String email, String password, String firstName, String lastName, LocalDate birthDate, String phone, String address, String emergencyPhone) {
         this.memberId = memberId;
         this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;

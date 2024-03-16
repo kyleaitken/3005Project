@@ -1,11 +1,13 @@
 package com.example.project.Controllers;
 
-import com.example.project.Entities.Member;
+import com.example.project.Models.Member;
 import com.example.project.Services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.dao.DataIntegrityViolationException;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +42,17 @@ public class MemberController {
         }
     }
 
-    // Add a new member
-    @PostMapping
-    public ResponseEntity<Member> addMember(@RequestBody Member member) {
-        memberService.addMember(member);
-        return new ResponseEntity<>(member, HttpStatus.CREATED); // Return the saved member with CREATED status
-    }
+	@PostMapping("/register")
+	public ResponseEntity<?> registerMember(@RequestBody Member member) {
+		try {
+			Member savedMember = memberService.registerMember(member);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Email already in use.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration.");
+		}
+	}
 
     // Update an existing member's information
     @PutMapping("/{memberId}")

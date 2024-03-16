@@ -1,7 +1,7 @@
 package com.example.project.Repos;
 
 import java.util.Optional;
-import com.example.project.Entities.Member;
+import com.example.project.Models.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -36,6 +36,16 @@ public class MemberRepository {
         }
     }
 
+    public Optional<Member> findByEmail(String email) {
+        try {
+            String sql = "SELECT * FROM members WHERE email = ?";
+            Member member = jdbcTemplate.queryForObject(sql, new Object[]{email}, memberRowMapper());
+            return Optional.ofNullable(member);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
     public void save(Member member) {
         String sql = "INSERT INTO Members (email, password, first_name, last_name, birth_date, phone, address, emergency_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -53,6 +63,7 @@ public class MemberRepository {
         return (rs, rowNum) -> new Member(
             rs.getLong("member_id"),
             rs.getString("email"),
+            rs.getString("password"),
             rs.getString("first_name"),
             rs.getString("last_name"),
             rs.getDate("birth_date").toLocalDate(),
