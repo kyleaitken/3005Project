@@ -2,14 +2,12 @@ package com.example.project.Repos;
 
 import java.util.Optional;
 
-import com.example.project.Models.Member;
 import com.example.project.Models.MemberHealthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.dao.EmptyResultDataAccessException;
-import java.util.List;
 
 @Repository
 public class MemberHealthInfoRepository {

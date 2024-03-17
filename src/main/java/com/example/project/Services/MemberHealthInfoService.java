@@ -1,11 +1,9 @@
 package com.example.project.Services;
 
-import com.example.project.Models.Member;
 import com.example.project.Models.MemberHealthInfo;
 import com.example.project.Repos.MemberHealthInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import java.util.Optional;
 
 @Service
