@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.Optional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -49,7 +48,7 @@ public class MemberService {
 
     // Update a member's info
     public void updateMember(Long memberId, Member updatedMember) {
-        Member existingMember = memberRepository.findById(memberId)
+        memberRepository.findById(memberId)
                                     .orElseThrow(() -> new RuntimeException("Member not found"));
         updatedMember.setMemberId(memberId);
         memberRepository.update(updatedMember);

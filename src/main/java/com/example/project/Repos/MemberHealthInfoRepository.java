@@ -47,7 +47,7 @@ public class MemberHealthInfoRepository {
             memberHealthInfo.getSystolicBp(),
             memberHealthInfo.getDiastolicBp(),
             memberHealthInfo.getWaistGirth());
-        }
+    }
 
     public void update(MemberHealthInfo memberHealthInfo) {
         String sql = "UPDATE memberhealthinfo SET height = ?, weight = ?, bmi = ?, " +
