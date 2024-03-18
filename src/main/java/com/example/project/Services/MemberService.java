@@ -22,11 +22,6 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public boolean validateLogin(String email, String password) {
-        Optional<Member> memberOpt = memberRepository.findByEmail(email);
-        return memberOpt.map(member -> encoder.matches(password, member.getPassword())).orElse(false);  
-    }
-
     public Member registerMember(Member member) {
         String hashedPassword = encoder.encode(member.getPassword());
 		member.setPassword(hashedPassword);

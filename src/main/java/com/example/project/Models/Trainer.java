@@ -1,7 +1,7 @@
 package com.example.project.Models;
 
 public class Trainer {
-    private Long trainerId;
+    private Integer trainerId;
     private String email;
     private String name;
     private String password;
@@ -13,7 +13,7 @@ public class Trainer {
     }
 
     // Parameterized constructor
-    public Trainer(Long trainerId, String email, String name, String password, Integer startTime, Integer endTime) {
+    public Trainer(Integer trainerId, String email, String name, String password, Integer startTime, Integer endTime) {
         this.trainerId = trainerId;
         this.email = email;
         this.name = name;
@@ -23,7 +23,7 @@ public class Trainer {
     }
 
     // Getters
-    public Long getTrainerId() {
+    public Integer getTrainerId() {
         return trainerId;
     }
 
@@ -48,7 +48,7 @@ public class Trainer {
     }
 
     // Setters
-    public void setTrainerId(Long trainerId) {
+    public void setTrainerId(Integer trainerId) {
         this.trainerId = trainerId;
     }
 
