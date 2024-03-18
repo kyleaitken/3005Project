@@ -1,8 +1,10 @@
 package com.example.project.Controllers;
 
+import com.example.project.Models.Invoice;
 import com.example.project.Models.Member;
 import com.example.project.Models.TrainingSession;
 import com.example.project.Services.FitnessClassService;
+import com.example.project.Services.InvoiceService;
 import com.example.project.Services.MemberService;
 import com.example.project.Services.TrainingSessionService;
 import com.example.project.dto.FitnessClassView;
@@ -25,12 +27,15 @@ public class MemberController {
     private final MemberService memberService;
     private final TrainingSessionService trainingSessionService;
     private final FitnessClassService fitnessClassService;
+    private final InvoiceService invoiceService;
 
     @Autowired
-    public MemberController(MemberService memberService, TrainingSessionService trainingSessionService, FitnessClassService fitnessClassService) {
+    public MemberController(MemberService memberService, TrainingSessionService trainingSessionService, 
+                FitnessClassService fitnessClassService, InvoiceService invoiceService) {
         this.memberService = memberService;
         this.trainingSessionService = trainingSessionService;
         this.fitnessClassService = fitnessClassService;
+        this.invoiceService = invoiceService;
     }
 
     // Get all members
@@ -160,6 +165,45 @@ public class MemberController {
     ***** INVOICES ******
     */ 
 
+    // member's unpaid invoices
+    @GetMapping("/{memberId}/invoices/unpaid")
+    public ResponseEntity<List<Invoice>> getUnpaidMemberInvoices(@PathVariable Integer memberId) {
+        List<Invoice> unpaidInvoices = invoiceService.getUnpaidMemberInvoices(memberId);
+        return ResponseEntity.ok(unpaidInvoices);
+    }
 
+    // member's paid invoices
+    @GetMapping("/{memberId}/invoices/paid")
+    public ResponseEntity<List<Invoice>> getPaidMemberInvoices(@PathVariable Integer memberId) {
+        List<Invoice> paidInvoices = invoiceService.getPaidMemberInvoices(memberId);
+        return ResponseEntity.ok(paidInvoices);
+    }
 
+    // member's processing invoices
+    @GetMapping("/{memberId}/invoices/processing")
+    public ResponseEntity<List<Invoice>> getProcessingMemberInvoices(@PathVariable Integer memberId) {
+        List<Invoice> processingInvoices = invoiceService.getProcessingMemberInvoices(memberId);
+        return ResponseEntity.ok(processingInvoices);
+    }
+
+    // member's canceled invoices
+    @GetMapping("/{memberId}/invoices/cancelled")
+    public ResponseEntity<List<Invoice>> getCancelledMemberInvoices(@PathVariable Integer memberId) {
+        List<Invoice> cancelledInvoices = invoiceService.getCancelledMemberInvoices(memberId);
+        return ResponseEntity.ok(cancelledInvoices);
+    }
+
+    // pay member invoice
+    @PutMapping("/invoices/pay/{paymentId}")
+    public ResponseEntity<?> payInvoice(@PathVariable Integer paymentId) {
+        try {
+            invoiceService.payMemberInvoice(paymentId);
+            return ResponseEntity.ok().build(); 
+        } catch (Exception e) {
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND) 
+                .body("Error processing payment: " + e.getMessage());
+        }
+
+    }
 }
