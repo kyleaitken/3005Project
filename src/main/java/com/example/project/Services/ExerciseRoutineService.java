@@ -2,16 +2,12 @@ package com.example.project.Services;
 
 import com.example.project.Models.ExerciseLog;
 import com.example.project.Models.MemberExerciseRoutine;
-import com.example.project.Models.MemberGoal;
-import com.example.project.Models.MemberHealthInfo;
 import com.example.project.Repos.ExerciseLogRepository;
 import com.example.project.Repos.ExerciseRoutineRepository;
-import com.example.project.Repos.MemberHealthInfoRepository;
 import com.example.project.dto.ExerciseRoutineDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

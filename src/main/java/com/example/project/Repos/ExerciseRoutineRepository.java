@@ -1,8 +1,6 @@
 package com.example.project.Repos;
 
 import com.example.project.Models.MemberExerciseRoutine;
-import com.example.project.Models.MemberGoal;
-import com.example.project.Models.MemberHealthInfo;
 import com.example.project.dto.ExerciseRoutineDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +11,12 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.sql.Connection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @Repository

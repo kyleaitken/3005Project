@@ -26,6 +26,7 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, memberRowMapper());
     }
 
+    @SuppressWarnings("deprecation")
     public Optional<Member> findById(Long memberId) {
         try {
             String sql = "SELECT * FROM members WHERE member_id = ?";
@@ -36,6 +37,7 @@ public class MemberRepository {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public Optional<Member> findByEmail(String email) {
         try {
             String sql = "SELECT * FROM members WHERE email = ?";

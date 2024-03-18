@@ -19,7 +19,7 @@ public class MemberHealthInfoRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
+    @SuppressWarnings("deprecation")
     public Optional<MemberHealthInfo> findById(Long memberId) {
         try {
             String sql = "SELECT * FROM memberhealthinfo WHERE member_id = ?";

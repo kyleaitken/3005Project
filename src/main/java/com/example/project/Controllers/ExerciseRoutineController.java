@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.project.Services.ExerciseRoutineService;
-import com.example.project.Services.MemberGoalService;
 import com.example.project.dto.ExerciseRoutineDto;
 
 import org.springframework.http.ResponseEntity;
 
 import com.example.project.Models.ExerciseLog;
 import com.example.project.Models.MemberExerciseRoutine;
-import com.example.project.Models.MemberGoal;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
