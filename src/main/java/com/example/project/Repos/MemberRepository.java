@@ -2,7 +2,6 @@ package com.example.project.Repos;
 
 import java.util.Optional;
 import com.example.project.Models.Member;
-import com.example.project.Models.TrainingSession;
 import com.example.project.dto.TrainerMemberProfileView;
 import com.example.project.dto.TrainerMemberView;
 

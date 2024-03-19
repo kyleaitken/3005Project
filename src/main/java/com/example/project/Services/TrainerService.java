@@ -14,7 +14,6 @@ import com.example.project.dto.TrainerMemberProfileView;
 import com.example.project.dto.TrainerMemberView;
 import com.example.project.dto.TrainerScheduleUpdateRequest;
 import com.example.project.dto.TrainerTrainingSessionView;
-import com.example.project.dto.TrainingSessionRequest;
 
 @Service
 public class TrainerService {

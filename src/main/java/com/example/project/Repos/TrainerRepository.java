@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.example.project.Models.Trainer;
-import com.example.project.dto.FitnessClassView;
 import com.example.project.dto.TrainerScheduleUpdateRequest;
 import com.example.project.dto.TrainerTrainingSessionView;
 

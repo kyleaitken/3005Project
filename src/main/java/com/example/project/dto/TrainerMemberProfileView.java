@@ -2,8 +2,6 @@ package com.example.project.dto;
 
 import java.time.LocalDate;
 
-import org.springframework.cglib.core.Local;
-
 public class TrainerMemberProfileView {
     private Integer memberId;
     private String firstName;
