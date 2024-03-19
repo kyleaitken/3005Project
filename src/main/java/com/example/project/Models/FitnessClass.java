@@ -1,11 +1,11 @@
 package com.example.project.Models;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class FitnessClass {
     private Integer classId;
     private Integer trainerId;
-    private Date date;
+    private LocalDate date;
     private Integer time;
     private String name;
     private Integer roomId;
@@ -15,7 +15,7 @@ public class FitnessClass {
     }
 
     // Parameterized constructor
-    public FitnessClass(Integer classId, Integer trainerId, Date date, Integer time, String name, Integer roomId) {
+    public FitnessClass(Integer classId, Integer trainerId, LocalDate date, Integer time, String name, Integer roomId) {
         this.classId = classId;
         this.trainerId = trainerId;
         this.date = date;
@@ -33,7 +33,7 @@ public class FitnessClass {
         return trainerId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -58,7 +58,7 @@ public class FitnessClass {
         this.trainerId = trainerId;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -42,6 +42,30 @@ public class InvoiceRepository {
         return Optional.empty();
     }
 
+    public List<Invoice> getInvoices() {
+        String sql = "SELECT * FROM Invoice ORDER BY status DESC";
+
+        List<Invoice> invoices = new ArrayList<>();
+
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Invoice invoice = new Invoice();
+                    invoice.setPaymentId(resultSet.getInt("payment_id"));
+                    invoice.setMemberId(resultSet.getInt("member_id"));
+                    invoice.setCost(resultSet.getInt("cost"));
+                    invoice.setType(resultSet.getString("type"));
+                    invoice.setStatus(resultSet.getString("status"));
+                    invoices.add(invoice); 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return invoices;
+    }
+
     public List<Invoice> getUnpaidMemberInvoices(Integer memberId) {
         String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Unpaid'";
 
@@ -58,7 +82,7 @@ public class InvoiceRepository {
                     invoice.setCost(resultSet.getInt("cost"));
                     invoice.setType(resultSet.getString("type"));
                     invoice.setStatus(resultSet.getString("status"));
-                    invoices.add(invoice); // Add the created invoice to the list
+                    invoices.add(invoice); 
                 }
             }
         } catch (SQLException e) {
@@ -119,6 +143,30 @@ public class InvoiceRepository {
         return invoices;
     }
 
+    public List<Invoice> getProcessingInvoices() {
+        String sql = "SELECT * FROM Invoice WHERE status = 'Processing'";
+
+        List<Invoice> invoices = new ArrayList<>();
+
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Invoice invoice = new Invoice();
+                    invoice.setPaymentId(resultSet.getInt("payment_id"));
+                    invoice.setMemberId(resultSet.getInt("member_id"));
+                    invoice.setCost(resultSet.getInt("cost"));
+                    invoice.setType(resultSet.getString("type"));
+                    invoice.setStatus(resultSet.getString("status"));
+                    invoices.add(invoice); 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return invoices;
+    }
+
 
     public List<Invoice> getCancelledMemberInvoices(Integer memberId) {
         String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Cancelled'";
@@ -149,6 +197,17 @@ public class InvoiceRepository {
     public void payMemberInvoice(Integer paymentId) {
         String sql = "UPDATE Invoice Set status = 'Processing' where payment_id = ?";
         jdbcTemplate.update(sql, paymentId);
+    }
+
+    public boolean processInvoice(Integer paymentId) {
+        String sql = "UPDATE Invoice Set status = 'Paid' where payment_id = ?";
+        try {
+            int affectedRows = jdbcTemplate.update(sql, paymentId);
+            return affectedRows > 0;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 

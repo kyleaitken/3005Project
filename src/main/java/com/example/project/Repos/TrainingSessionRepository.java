@@ -83,6 +83,7 @@ public class TrainingSessionRepository {
         return sessions;
     }
 
+
     public List<MemberTrainingSessionView> findAllPastMemberSessions(Long memberId) {
         String sql = "SELECT TS.session_id, TS.trainer_id, T.name AS trainer_name, TS.date, TS.time " +
                      "FROM TrainingSession TS " +
@@ -115,10 +116,12 @@ public class TrainingSessionRepository {
         return sessions;
     }
 
+    
     public void deleteSession(Long sessionId) {
         String sql = "DELETE FROM TrainingSession WHERE session_id = ?";
         jdbcTemplate.update(sql, sessionId);
     }
+
 
     @SuppressWarnings("deprecation")
     public ResponseEntity<Object> addNewMemberSession(Integer memberId, TrainingSessionRequest session) {

@@ -1,9 +1,6 @@
 package com.example.project.Controllers;
 
-import com.example.project.Models.Member;
-import com.example.project.Models.Trainer;
 import com.example.project.Services.AuthenticationService;
-import com.example.project.Services.MemberService;
 import com.example.project.dto.LoginRequest;
 import com.example.project.dto.LoginResponse;
 

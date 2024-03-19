@@ -73,7 +73,7 @@ public class MemberController {
     @PutMapping("/{memberId}")
     public ResponseEntity<Member> updateMember(@PathVariable Long memberId, @RequestBody Member updatedMember) {
         memberService.updateMember(memberId, updatedMember);
-        return ResponseEntity.ok(updatedMember); // Return the updated member with OK status
+        return ResponseEntity.ok(updatedMember); 
     }
 
 
