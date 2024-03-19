@@ -5,12 +5,10 @@ import com.example.project.Repos.FitnessClassRepository;
 import com.example.project.dto.AddClassRequest;
 import com.example.project.dto.ClassUpdateRequest;
 import com.example.project.dto.FitnessClassView;
-import com.example.project.dto.TrainingSessionRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

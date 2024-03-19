@@ -6,6 +6,7 @@ import com.example.project.dto.MemberTrainingSessionView;
 import com.example.project.dto.TrainingSessionRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,10 @@ public class TrainingSessionService {
         return trainingSessionRepository.findAllPastMemberSessions(memberId);
     }
 
-    public void deleteSession(Long sessionId) {
-        trainingSessionRepository.deleteSession(sessionId);
+    public ResponseEntity<?> deleteSession(Integer sessionId) {
+        boolean sessionDeleted = trainingSessionRepository.deleteSession(sessionId);
+        if (sessionDeleted) return ResponseEntity.ok().body("Training session deleted");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Session not found or unsuccessful delete");
     }
 
     public ResponseEntity<?> addNewMemberSession(Integer memberId, TrainingSessionRequest session) {

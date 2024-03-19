@@ -106,9 +106,8 @@ public class MemberController {
 
    // delete training session
    @DeleteMapping("/sessions/{sessionId}")
-   public ResponseEntity<?> deleteTrainingSessionById(@PathVariable Long sessionId) {
-        trainingSessionService.deleteSession(sessionId);
-        return ResponseEntity.ok().build();
+   public ResponseEntity<?> deleteTrainingSessionById(@PathVariable Integer sessionId) {
+       return trainingSessionService.deleteSession(sessionId);
     }
 
     // add training session for member

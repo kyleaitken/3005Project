@@ -117,9 +117,10 @@ public class TrainingSessionRepository {
     }
 
     
-    public void deleteSession(Long sessionId) {
+    public boolean deleteSession(Integer sessionId) {
         String sql = "DELETE FROM TrainingSession WHERE session_id = ?";
-        jdbcTemplate.update(sql, sessionId);
+        int affectedRows = jdbcTemplate.update(sql, sessionId);
+        return affectedRows > 0;
     }
 
 
