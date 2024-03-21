@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import Header from './components/Header';
 import LoginScreen from './screens/LoginScreen';
 import MemberHomeScreen from './screens/MemberHomeScreen';
-import { AuthContextProvider } from './contexts/AuthContext';
+import { AuthContextProvider, useAuth } from './contexts/AuthContext';
+
 
 function App() {
+
   return (
     <AuthContextProvider>
       <Router>

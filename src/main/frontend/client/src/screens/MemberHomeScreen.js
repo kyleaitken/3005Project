@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import NavigationSideBar from '../components/NavigationSideBar';
 
 const MemberHomeScreen = () => {
     const { userId } = useAuth();
@@ -10,7 +11,7 @@ const MemberHomeScreen = () => {
     }
 
     return (
-        <h1> It's the Member Home screen </h1>
+        <NavigationSideBar />
     )
 }
 
