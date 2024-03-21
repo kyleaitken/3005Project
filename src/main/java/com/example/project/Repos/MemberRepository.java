@@ -2,6 +2,9 @@ package com.example.project.Repos;
 
 import java.util.Optional;
 import com.example.project.Models.Member;
+import com.example.project.dto.FitnessClassView;
+import com.example.project.dto.MemberScheduleView;
+import com.example.project.dto.MemberTrainingSessionView;
 import com.example.project.dto.TrainerMemberProfileView;
 import com.example.project.dto.TrainerMemberView;
 
@@ -130,6 +133,67 @@ public class MemberRepository {
         return Optional.empty();
 
     }
+
+    public List<MemberScheduleView> getMemberSchedule(Integer memberId) {
+        String sql = "SELECT " +
+                            "TS.session_id AS session_class_id, " +
+                            "TS.date, " +
+                            "TS.time, " +
+                            "TS.trainer_id, " +
+                            "T.name AS trainer_name, " +
+                            "NULL AS class_id, " +
+                            "NULL AS class_name " +
+                    "FROM " +
+                            "Members M " +
+                    "JOIN TrainingSession TS ON M.member_id = TS.member_id " +
+                    "JOIN Trainers T ON TS.trainer_id = T.trainer_id " +
+                    "WHERE " +
+                            "M.member_id = ? AND " +
+                            "TS.date >= CURRENT_DATE " +
+                "UNION ALL " +
+                    "SELECT " +
+                            "NULL AS session_id, " +
+                            "FC.date, " +
+                            "FC.time, " +
+                            "FC.trainer_id, " +
+                            "T.name AS trainer_name, " +
+                            "FC.class_id, " +
+                            "FC.name AS class_name " +
+                     "FROM " +
+                             "Members M " +
+                    "JOIN ClassParticipants CP ON M.member_id = CP.member_id " +
+                    "JOIN FitnessClass FC ON CP.class_id = FC.class_id " +
+                    "JOIN Trainers T ON FC.trainer_id = T.trainer_id " +
+                     "WHERE " +
+                            "M.member_id = ? AND " +
+                            "FC.date >= CURRENT_DATE " +
+                     "ORDER BY " +
+                            "date, " +
+                            "time;";
+
+        
+        List<MemberScheduleView> scheduleItems = new ArrayList<>();
+
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, memberId);
+            preparedStatement.setInt(2, memberId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    MemberScheduleView scheduleItem = new MemberScheduleView();
+                    scheduleItem.setDate(resultSet.getDate("date").toLocalDate());
+                    scheduleItem.setTime(resultSet.getInt("time"));
+                    scheduleItem.setClassName(resultSet.getString("class_name"));
+                    scheduleItem.setTrainerName(resultSet.getString("trainer_name"));
+                    scheduleItems.add(scheduleItem);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return scheduleItems;
+    }
+    
 
 
     private RowMapper<Member> memberRowMapper() {

@@ -2,6 +2,8 @@ package com.example.project.Services;
 
 import com.example.project.Models.Member;
 import com.example.project.Repos.MemberRepository;
+import com.example.project.dto.MemberScheduleView;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,6 +49,10 @@ public class MemberService {
                                     .orElseThrow(() -> new RuntimeException("Member not found"));
         updatedMember.setMemberId(memberId);
         memberRepository.update(updatedMember);
+    }
+
+    public List<MemberScheduleView> getMemberSchedule(Integer memberId) {
+        return memberRepository.getMemberSchedule(memberId);
     }
 
 }

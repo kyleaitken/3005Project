@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
 import { attemptLogin } from '../api/authApi'; 
 import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
-    const { dispatch } = useAuth();
+    const { dispatch, isLoggedIn } = useAuth();
     const navigate  = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/member');
+        }
+    }, [isLoggedIn, navigate]); 
 
     const handleFormSubmit = async (event) => {
         event.preventDefault(); 
         const loginResponse = await attemptLogin(email, password);
         
-        // If login is successful, update the context state
         if (loginResponse) {
             console.log('login response from API: ', loginResponse)
             dispatch({
               type: 'LOGIN',
               payload: loginResponse
             });
-            if (loginResponse.type = "Member") {
+            if (loginResponse.type === "Member") {
                 navigate('/member'); 
             }
         }
