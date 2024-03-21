@@ -8,6 +8,7 @@ import com.example.project.Services.InvoiceService;
 import com.example.project.Services.MemberService;
 import com.example.project.Services.TrainingSessionService;
 import com.example.project.dto.FitnessClassView;
+import com.example.project.dto.MemberScheduleView;
 import com.example.project.dto.MemberTrainingSessionView;
 import com.example.project.dto.TrainingSessionRequest;
 
@@ -204,5 +205,12 @@ public class MemberController {
                 .body("Error processing payment: " + e.getMessage());
         }
 
+    }
+
+    // get Schedule 
+    @GetMapping("/{memberId}/schedule")
+    public ResponseEntity<List<MemberScheduleView>> getMemberSchedule(@PathVariable Integer memberId) {
+        List<MemberScheduleView> schedule = memberService.getMemberSchedule(memberId);
+        return ResponseEntity.ok(schedule);
     }
 }
