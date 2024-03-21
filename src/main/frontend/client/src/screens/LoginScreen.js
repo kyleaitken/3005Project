@@ -12,7 +12,7 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigate('/member');
+            navigate('/schedule');
         }
     }, [isLoggedIn, navigate]); 
 
@@ -27,7 +27,7 @@ const LoginScreen = () => {
               payload: loginResponse
             });
             if (loginResponse.type === "Member") {
-                navigate('/member'); 
+                navigate('/schedule'); 
             }
         }
     };

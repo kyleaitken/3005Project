@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { getMemberSchedule } from '../api/memberApi';
 import { useAuth } from '../contexts/AuthContext';
 import styled from 'styled-components';
@@ -18,6 +19,11 @@ const MemberSchedule = () => {
             setSchedule(scheduleResponse)
         }
     }, [userId]); 
+
+    if (!userId) {
+        console.log("re-routing to login screen")
+        return <Navigate to="/" replace />;
+    }
 
     return (
         <MemberScheduleView>
