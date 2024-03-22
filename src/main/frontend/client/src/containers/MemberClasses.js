@@ -43,7 +43,7 @@ const MemberClasses = () => {
 
     return (
         <ClassesView>
-            <MemberClassesTable handleLeaveClassClicked={handleLeaveClassClicked} type={"Upcoming"} classes={upcomingClasses}/>
+            <MemberClassesTable buttonHandler={handleLeaveClassClicked} type={"Upcoming"} classes={upcomingClasses}/>
             <MemberClassesTable type={"Previous"} classes={pastClasses}/>
         </ClassesView>
     )
@@ -54,4 +54,5 @@ export default MemberClasses;
 const ClassesView = styled.div`
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 `

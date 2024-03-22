@@ -129,6 +129,7 @@ public class FitnessClassRepository {
                     "JOIN Trainers T ON FC.trainer_id = T.trainer_id " +
                     "JOIN Room ON FC.room_id = Room.room_id " +
                     "WHERE CP.class_id IS NULL " +
+                    "AND FC.date >= CURRENT_DATE " +
                     "ORDER BY FC.date ASC, FC.time ASC";
 
         List<FitnessClassView> fitnessClasses = new ArrayList<>();
@@ -168,19 +169,19 @@ public class FitnessClassRepository {
         try {
             jdbcTemplate.query(sql, new Object[]{classId, memberId},
                 rs -> null); 
-            return ResponseEntity.ok().body("Class successfully added to member's schedule.");
+                return ResponseEntity.ok().body("{\"message\": \"Success\"}");
         } catch (UncategorizedSQLException e) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("Scheduling conflict detected: " + e.getMostSpecificCause().getMessage());
+                    .body("{\"message\": \"Schedule conflict detected:\"}");
         } catch (DuplicateKeyException e) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("Member is already enrolled in this class.");
+                    .body("{\"message\": \"Schedule conflict detected:\"}");
         } catch (DataAccessException e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Unable to process the request: " + e.getMostSpecificCause().getMessage());
+                    .body("{\"message\": \"Unable to add member to class:\"}");
         }
     }
 

@@ -31,7 +31,7 @@ const NavigationSideBar = () => {
       <StyledLink to="/schedule">Schedule</StyledLink>
       <StyledLink to="/sessions">Manage Sessions</StyledLink>
       <StyledLink to="/classes">Manage Classes</StyledLink>
-      <StyledLink to="/classes">Join a Class</StyledLink>
+      <StyledLink to="/joinClass">Join a Class</StyledLink>
       <StyledLink to="/exercise-routines">Exercise Routines</StyledLink>
       <StyledLink to="/goals">Goals</StyledLink>
       <StyledLink to="/invoices">Invoices</StyledLink>
