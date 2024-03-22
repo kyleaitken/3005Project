@@ -54,3 +54,18 @@ export const joinClass = (memberId, classId) => {
 export const addSession = (memberId, trainerId, date, time) => {
     return post(API_ENDPOINTS.addMemberSession(memberId), {trainerId, date, time });
 };
+
+export const getExerciseRoutines = (memberId) => {
+    const url = API_ENDPOINTS.getExerciseRoutines(memberId);
+    return get(url);
+}
+
+export const addExerciseRoutine = (memberId) => {
+    const url = API_ENDPOINTS.addExerciseRoutine(memberId);
+    return post(url);
+}
+
+export const deleteExerciseRoutine = (memberId, routineId) => {
+    const url = API_ENDPOINTS.deleteExerciseRoutine(memberId, routineId);
+    return del(url);
+}

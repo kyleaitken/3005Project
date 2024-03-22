@@ -29,14 +29,15 @@ public class ExerciseRoutineRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(MemberExerciseRoutine routine) {
+    public boolean save(MemberExerciseRoutine routine) {
         String sql = "INSERT INTO MemberExerciseRoutine (member_id) VALUES (?)";
 
-        jdbcTemplate.update(sql, routine.getMemberId());
+        int rowsAffected = jdbcTemplate.update(sql, routine.getMemberId());
+        return rowsAffected > 0;
     }
 
     public List<MemberExerciseRoutine> findMemberRoutines(Long memberId) {
-        String sql = "SELECT * FROM MemberExerciseRoutine WHERE member_id = ?";
+        String sql = "SELECT * FROM MemberExerciseRoutine WHERE member_id = ? ORDER BY routine_id";
         List<MemberExerciseRoutine> memberRoutines = new ArrayList<>();
 
         try (Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -92,9 +93,10 @@ public class ExerciseRoutineRepository {
     }
 
 
-    public void deleteRoutine(Long routineId) {
+    public boolean deleteRoutine(Long routineId) {
         String sql = "DELETE FROM MemberExerciseRoutine WHERE routine_id = ?";
-        jdbcTemplate.update(sql, routineId);
+        int rowsAffected = jdbcTemplate.update(sql, routineId);
+        return rowsAffected > 0;
     }
 
 

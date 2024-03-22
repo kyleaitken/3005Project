@@ -35,8 +35,7 @@ public class ExerciseRoutineController {
 
     @PostMapping("/add")
 	public ResponseEntity<?> addExerciseRoutine(@PathVariable Long memberId) {
-        exerciseRoutineService.save(memberId);
-        return ResponseEntity.ok().build();
+        return exerciseRoutineService.save(memberId);
 	}
 
     // get member's exercise routines
@@ -55,10 +54,9 @@ public class ExerciseRoutineController {
     }
 
     // delete routine
-    @DeleteMapping("/{routineId}")
+    @DeleteMapping("/delete/{routineId}")
     public ResponseEntity<?> deleteMemberGoalById(@PathVariable Long routineId) {
-        exerciseRoutineService.deleteRoutine(routineId);
-        return ResponseEntity.ok().build();
+        return exerciseRoutineService.deleteRoutine(routineId);
     }
 
 
