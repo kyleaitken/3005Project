@@ -5,6 +5,7 @@ import LoginScreen from "../screens/LoginScreen";
 import MemberSchedule from "./MemberSchedule";
 import MemberSessions from "./MemberSessions";
 import MemberClasses from "./MemberClasses";
+import AvailableClasses from "./AvailableClasses";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -20,6 +21,7 @@ const AppContent = () => {
                 <Route path="/schedule" element={<MemberSchedule />} />
                 <Route path="/sessions" element={<MemberSessions />} />
                 <Route path="/classes" element={<MemberClasses />} />
+                <Route path="/joinClass" element={<AvailableClasses />} />
             </Routes>
         </AppContentView>
     )

@@ -36,9 +36,19 @@ export const getMemberPastClasses = (memberId) => {
     return get(url);
 }
 
+export const getMemberAvailableClasses = (memberId) => {
+    const url = API_ENDPOINTS.getMemberAvailableClasses(memberId);
+    return get(url);
+}
+
 export const leaveClass = (memberId, classId) => {
     const url = API_ENDPOINTS.leaveClassById(memberId, classId);
     return del(url);
+}
+
+export const joinClass = (memberId, classId) => {
+    const url = API_ENDPOINTS.joinClassById(memberId, classId);
+    return post(url);
 }
 
 export const addSession = (memberId, trainerId, date, time) => {

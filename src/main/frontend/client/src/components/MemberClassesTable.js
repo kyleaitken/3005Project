@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MemberClassesTable = (props) => {
-    const {handleLeaveClassClicked, classes, type} = props;
+    const {buttonHandler, classes, type} = props;
     const noClasses = !classes || classes.length === 0;
 
-    const LeaveClassButton = ({ classId }) => (
-        <LeaveButton onClick={() => handleLeaveClassClicked(classId)}>
-            Leave Class
-        </LeaveButton>
+    const LeaveOrJoinClassButton = ({ classId }) => (
+        <ActionButton onClick={() => buttonHandler(classId)}>
+            {type === "Upcoming" ? <p>Leave Class</p> : <p>Join Class</p>}
+        </ActionButton>
     );
 
     const Header = ({type}) => {
@@ -45,7 +45,7 @@ const MemberClassesTable = (props) => {
                                 <TableCell>{item.time}</TableCell>
                                 <TableCell>{item.trainerName}</TableCell>
                                 <TableCell>{item.roomName}</TableCell>
-                                <TableCell>{type === "Upcoming" ? <LeaveClassButton classId={item.classId}/> :  <DummyView/>}</TableCell>
+                                <TableCell>{type === "Upcoming" || type === "Available" ? <LeaveOrJoinClassButton classId={item.classId}/> :  <DummyView/>}</TableCell>
                             </TableRow>
                         ))}
                     </tbody>
@@ -68,7 +68,7 @@ const Table = styled.table`
 `;
 
 const TableHeader = styled.th`
-    padding: 10px 100px 10px 50px;
+    padding: 10px 60px 10px 50px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     font-size: 22px;
@@ -81,13 +81,13 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td`
-    padding: 20px 100px 20px 50px;
+    padding: 20px 60px 20px 50px;
     border-bottom: 1px solid #ddd;
     text-align: center;
     font-size: 20px;
 `;
 
-const LeaveButton = styled.button`
+const ActionButton = styled.button`
     padding: 10px 20px;
     background-color: red; 
     width: 170px;

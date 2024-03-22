@@ -8,7 +8,9 @@ export const API_ENDPOINTS = {
     getMemberPastSessions: (memberId) => `${BASE_URL}/members/${memberId}/pastSessions`,
     cancelMemberSession: (sessionId) => `${BASE_URL}/members/sessions/${sessionId}`,
     getMemberUpcomingClasses: (memberId) => `${BASE_URL}/members/${memberId}/futureClasses`,
+    getMemberAvailableClasses: (memberId) => `${BASE_URL}/members/${memberId}/availableClasses`,
     getMemberPastClasses: (memberId) => `${BASE_URL}/members/${memberId}/pastClasses`,
     leaveClassById: (memberId, classId) => `${BASE_URL}/members/${memberId}/leaveClass/${classId}`,
+    joinClassById: (memberId, classId) => `${BASE_URL}/members/${memberId}/join/${classId}`,
     addMemberSession: (memberId) => `${BASE_URL}/members/${memberId}/addSession`,
   };
