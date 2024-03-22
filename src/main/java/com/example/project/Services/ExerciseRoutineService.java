@@ -7,6 +7,8 @@ import com.example.project.Repos.ExerciseRoutineRepository;
 import com.example.project.dto.ExerciseRoutineDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,18 +25,22 @@ public class ExerciseRoutineService {
         this.exerciseLogRepository = exerciseLogRepository;
     }
 
-    public void save(Long memberId) {
+    public ResponseEntity<?> save(Long memberId) {
         MemberExerciseRoutine routine = new MemberExerciseRoutine();
         routine.setMemberId(memberId);
-        exerciseRoutineRepository.save(routine);
+        boolean routineAdded = exerciseRoutineRepository.save(routine);
+        if (routineAdded) return ResponseEntity.ok().body("{\"message\": \"Success\"}");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Failed\"}");
     }
 
     public List<MemberExerciseRoutine> findMemberRoutines(Long memberId) {
         return exerciseRoutineRepository.findMemberRoutines(memberId);
     }
 
-    public void deleteRoutine(Long routineId) {
-        exerciseRoutineRepository.deleteRoutine(routineId);
+    public ResponseEntity<?> deleteRoutine(Long routineId) {
+        boolean routineDeleted = exerciseRoutineRepository.deleteRoutine(routineId);
+        if (routineDeleted) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Failed\"}");
     }
 
     public List<ExerciseRoutineDto> findRoutinesAndExercises(Long memberId) {

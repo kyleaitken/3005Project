@@ -14,7 +14,7 @@ const AvailableClasses = () => {
             const availableClassesResponse = await getMemberAvailableClasses(userId);
             setAvailableClasses(availableClassesResponse)
         }
-    })
+    }, [userId])
 
     useEffect(() => {
         getAvailableClasses();

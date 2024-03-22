@@ -13,4 +13,7 @@ export const API_ENDPOINTS = {
     leaveClassById: (memberId, classId) => `${BASE_URL}/members/${memberId}/leaveClass/${classId}`,
     joinClassById: (memberId, classId) => `${BASE_URL}/members/${memberId}/join/${classId}`,
     addMemberSession: (memberId) => `${BASE_URL}/members/${memberId}/addSession`,
+    getExerciseRoutines: (memberId) => `${BASE_URL}/members/${memberId}/routines/exercises`,
+    addExerciseRoutine: (memberId) => `${BASE_URL}/members/${memberId}/routines/add`,
+    deleteExerciseRoutine: (memberId, routineId) => `${BASE_URL}/members/${memberId}/routines/delete/${routineId}`,
   };
