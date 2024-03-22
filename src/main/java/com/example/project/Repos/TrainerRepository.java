@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +125,30 @@ public class TrainerRepository {
         }
         return trainerSessions;
     }
+
+    public List<Map<String, Object>> getAvailableTrainers() {
+        String sql = "SELECT trainer_id, name, start_time, end_time FROM Trainers";
+        List<Map<String, Object>> trainers = new ArrayList<>();
+
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Map<String, Object> trainer = new HashMap<>();
+                    trainer.put("trainerId", resultSet.getInt("trainer_id"));
+                    trainer.put("trainerName", resultSet.getString("name"));
+                    trainer.put("startTime", resultSet.getInt("start_time"));
+                    trainer.put("endTime", resultSet.getInt("end_time"));
+                    trainers.add(trainer);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return trainers;
+    }
+    
 
     private RowMapper<Trainer> trainerRowMapper() {
         return (rs, rowNum) -> new Trainer(

@@ -3,17 +3,17 @@ package com.example.project.dto;
 import java.time.LocalDate;
 
 public class TrainingSessionRequest {
-    private String trainerName;
+    private Integer trainerId;
     private LocalDate date;
     private Integer time;
 
     // Getters and Setters
-    public String getTrainerName() {
-        return trainerName;
+    public Integer getTrainerId() {
+        return trainerId;
     }
 
-    public void setTrainerName(String trainerName) {
-        this.trainerName = trainerName;
+    public void setTrainerId(Integer trainerId) {
+        this.trainerId = trainerId;
     }
 
     public LocalDate getDate() {

@@ -4,6 +4,7 @@ import NavigationSideBar from "../components/NavigationSideBar";
 import LoginScreen from "../screens/LoginScreen";
 import MemberSchedule from "./MemberSchedule";
 import MemberSessions from "./MemberSessions";
+import MemberClasses from "./MemberClasses";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ const AppContent = () => {
                 <Route path="/" element={<LoginScreen />} />
                 <Route path="/schedule" element={<MemberSchedule />} />
                 <Route path="/sessions" element={<MemberSessions />} />
+                <Route path="/classes" element={<MemberClasses />} />
             </Routes>
         </AppContentView>
     )

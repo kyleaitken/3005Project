@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MemberSessionsTable = (props) => {
-    const {handleCancelSessionClicked, sessions, type} = props;
-    const noSessions = !sessions || sessions.length === 0;
+const MemberClassesTable = (props) => {
+    const {handleLeaveClassClicked, classes, type} = props;
+    const noClasses = !classes || classes.length === 0;
 
-
-    const CancelSessionButton = ({ sessionId }) => (
-        <CancelButton onClick={() => handleCancelSessionClicked(sessionId)}>
-            Cancel Session
-        </CancelButton>
+    const LeaveClassButton = ({ classId }) => (
+        <LeaveButton onClick={() => handleLeaveClassClicked(classId)}>
+            Leave Class
+        </LeaveButton>
     );
-
 
     const Header = ({type}) => {
         return (
-        <HeaderView>
-                {noSessions ?  (<h1>No {type} Sessions</h1>) : (<h1>{type} Sessions</h1>)}
-        </HeaderView>
-        )
+            <HeaderView>
+                    {noClasses ?  (<h1>No {type} Classes</h1>) : (<h1>{type} Classes</h1>)}
+            </HeaderView>
+            )
     }
 
     return (
         <Container>
-            {noSessions ? (
+            {noClasses ? (
                 <Header type={type}/> 
             ) : (
                 <>
@@ -31,19 +29,23 @@ const MemberSessionsTable = (props) => {
                 <Table>
                     <thead>
                         <tr>
+                            <TableHeader>Class</TableHeader>
                             <TableHeader>Date</TableHeader>
                             <TableHeader>Time</TableHeader>
                             <TableHeader>Trainer</TableHeader>
+                            <TableHeader>Room</TableHeader>
                             <TableHeader />
                         </tr>
                     </thead>
                     <tbody>
-                        {sessions && sessions.map(item => (
-                            <TableRow key={item.sessionId}>
+                        {classes && classes.map(item => (
+                            <TableRow key={item.classId}>
+                                <TableCell>{item.className}</TableCell>
                                 <TableCell>{item.date}</TableCell>
                                 <TableCell>{item.time}</TableCell>
                                 <TableCell>{item.trainerName}</TableCell>
-                                <TableCell>{type === "Upcoming" ? <CancelSessionButton sessionId={item.sessionId}/> :  <DummyView/>}</TableCell>
+                                <TableCell>{item.roomName}</TableCell>
+                                <TableCell>{type === "Upcoming" ? <LeaveClassButton classId={item.classId}/> :  <DummyView/>}</TableCell>
                             </TableRow>
                         ))}
                     </tbody>
@@ -54,7 +56,7 @@ const MemberSessionsTable = (props) => {
     );
 }
 
-export default MemberSessionsTable;
+export default MemberClassesTable;
 
 const Container = styled.div`
     margin-top: 20px;
@@ -66,7 +68,7 @@ const Table = styled.table`
 `;
 
 const TableHeader = styled.th`
-    padding: 10px 200px 10px 0px;
+    padding: 10px 100px 10px 50px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     font-size: 22px;
@@ -79,13 +81,13 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td`
-    padding: 20px 200px 20px 0px;
+    padding: 20px 100px 20px 50px;
     border-bottom: 1px solid #ddd;
     text-align: center;
     font-size: 20px;
 `;
 
-const CancelButton = styled.button`
+const LeaveButton = styled.button`
     padding: 10px 20px;
     background-color: red; 
     width: 170px;

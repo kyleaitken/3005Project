@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const SideBarContainer = styled.div`
   display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 250px;
   flex-direction: column;
   width: 250px; 
   height: 100vh;
