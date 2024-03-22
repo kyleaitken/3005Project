@@ -4,9 +4,11 @@ import styled from 'styled-components';
 const ScheduleTable = ({ schedule }) => {
     return (
         <Container>
-            {schedule && schedule.length === 0 ? (
+            {!schedule || schedule.length === 0 ? (
                 <h1>Your schedule is empty</h1>
             ) : (
+                <>
+                    <h1> Your Schedule </h1>
                 <Table>
                     <thead>
                         <tr>
@@ -27,6 +29,7 @@ const ScheduleTable = ({ schedule }) => {
                         ))}
                     </tbody>
                 </Table>
+                </>
             )}
         </Container>
     );

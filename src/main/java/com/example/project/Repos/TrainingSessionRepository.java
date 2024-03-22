@@ -126,16 +126,16 @@ public class TrainingSessionRepository {
 
     @SuppressWarnings("deprecation")
     public ResponseEntity<Object> addNewMemberSession(Integer memberId, TrainingSessionRequest session) {
-        String sql = "SELECT insert_training_session((SELECT trainer_id FROM trainers WHERE name = ?), ?, ?, ?)";
+        String sql = "SELECT insert_training_session(?, ?, ?, ?)";
     
         try {
-            jdbcTemplate.query(sql, new Object[]{session.getTrainerName(), memberId, java.sql.Date.valueOf(session.getDate()), session.getTime()},
+            jdbcTemplate.query(sql, new Object[]{session.getTrainerId(), memberId, java.sql.Date.valueOf(session.getDate()), session.getTime()},
                 rs -> null); 
-            return ResponseEntity.ok().body("Session successfully added.");
-        } catch (UncategorizedSQLException e) {
+                return ResponseEntity.ok().body("{\"message\": \"Success\"}");
+            } catch (UncategorizedSQLException e) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("Scheduling conflict detected: " + e.getMostSpecificCause().getMessage());
+                    .body("{\"message\": \"Schedule conflict detected:\"}");
         }  
     }
 

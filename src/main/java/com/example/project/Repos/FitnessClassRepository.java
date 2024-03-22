@@ -90,7 +90,7 @@ public class FitnessClassRepository {
                     "WHERE CP.member_id = ? " +
                     "AND (FC.date > CURRENT_DATE OR " +
                         "(FC.date = CURRENT_DATE AND FC.time > EXTRACT(HOUR FROM CURRENT_TIME)::INT)) " +
-                    "ORDER BY FC.date DESC, FC.time DESC";
+                    "ORDER BY FC.date ASC, FC.time ASC";
 
         List<FitnessClassView> fitnessClasses = new ArrayList<>();
 
@@ -129,7 +129,7 @@ public class FitnessClassRepository {
                     "JOIN Trainers T ON FC.trainer_id = T.trainer_id " +
                     "JOIN Room ON FC.room_id = Room.room_id " +
                     "WHERE CP.class_id IS NULL " +
-                    "ORDER BY FC.date DESC, FC.time DESC";
+                    "ORDER BY FC.date ASC, FC.time ASC";
 
         List<FitnessClassView> fitnessClasses = new ArrayList<>();
 
@@ -155,9 +155,10 @@ public class FitnessClassRepository {
     }
 
 
-    public void removeMemberFromClass(Integer memberId, Integer classId) {
+    public boolean removeMemberFromClass(Integer memberId, Integer classId) {
         String sql = "DELETE FROM ClassParticipants WHERE member_id = ? AND class_id = ?";
-        jdbcTemplate.update(sql, memberId, classId);
+        int affectedRows = jdbcTemplate.update(sql, memberId, classId);
+        return affectedRows > 0;
     }
 
     @SuppressWarnings("deprecation")

@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const SideBarContainer = styled.div`
   display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 250px;
   flex-direction: column;
   width: 250px; 
   height: 100vh;
@@ -26,8 +29,9 @@ const NavigationSideBar = () => {
   return (
     <SideBarContainer>
       <StyledLink to="/schedule">Schedule</StyledLink>
-      <StyledLink to="/sessions">Sessions</StyledLink>
-      <StyledLink to="/classes">Classes</StyledLink>
+      <StyledLink to="/sessions">Manage Sessions</StyledLink>
+      <StyledLink to="/classes">Manage Classes</StyledLink>
+      <StyledLink to="/classes">Join a Class</StyledLink>
       <StyledLink to="/exercise-routines">Exercise Routines</StyledLink>
       <StyledLink to="/goals">Goals</StyledLink>
       <StyledLink to="/invoices">Invoices</StyledLink>

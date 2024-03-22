@@ -10,7 +10,6 @@ export const post = async (url, data) => {
 };
 
 export const get = async (url) => {
-  console.log('url: ', url)
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
@@ -18,3 +17,13 @@ export const get = async (url) => {
   });
   return response.json();
 }
+
+export const del = async (url) => {
+  const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  });
+  return response.text();
+};

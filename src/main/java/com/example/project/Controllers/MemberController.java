@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -117,6 +118,11 @@ public class MemberController {
        return trainingSessionService.addNewMemberSession(memberId, session);
 	}
 
+    @GetMapping("/getTrainers")
+    public List<Map<String, Object>> getAvailableTrainers() {
+        return memberService.getAvailableTrainers();
+    }
+
 
     /* 
     ***** FITNESS CLASSES ******
@@ -147,10 +153,9 @@ public class MemberController {
     }
 
     // leave class
-    @DeleteMapping("/{memberId}/leave/{classId}")
+    @DeleteMapping("/{memberId}/leaveClass/{classId}")
     public ResponseEntity<?> leaveClassById(@PathVariable Integer memberId, @PathVariable Integer classId) {
-        fitnessClassService.removeMemberFromClass(memberId, classId);
-        return ResponseEntity.ok().build();
+        return fitnessClassService.removeMemberFromClass(memberId, classId);
     }
 
     // join class

@@ -36,8 +36,10 @@ public class FitnessClassService {
         return fitnessClassRepository.findAllAvailableMemberFitnessClasses(memberId);
     }
 
-    public void removeMemberFromClass(Integer memberId, Integer classId) {
-        fitnessClassRepository.removeMemberFromClass(memberId, classId);
+    public ResponseEntity<?> removeMemberFromClass(Integer memberId, Integer classId) {
+        boolean memberRemoved = fitnessClassRepository.removeMemberFromClass(memberId, classId);
+        if (memberRemoved) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Class not found or unsuccessful delete");
     }
 
     public ResponseEntity<?> addMemberToClass(Integer memberId, Integer classId) {
