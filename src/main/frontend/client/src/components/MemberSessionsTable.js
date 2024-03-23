@@ -82,7 +82,7 @@ const TableCell = styled.td`
     padding: 20px 200px 20px 0px;
     border-bottom: 1px solid #ddd;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
 `;
 
 const CancelButton = styled.button`
@@ -93,7 +93,7 @@ const CancelButton = styled.button`
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 5px;
 
     &:hover {

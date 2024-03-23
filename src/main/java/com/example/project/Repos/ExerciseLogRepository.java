@@ -57,9 +57,10 @@ public class ExerciseLogRepository {
         return rowsAffected > 0;
     }
 
-    public void deleteLog(Long logId) {
+    public boolean deleteLog(Long logId) {
         String sql = "DELETE FROM ExerciseLog WHERE log_id = ?";
-        jdbcTemplate.update(sql, logId);
+        int rowsAffected = jdbcTemplate.update(sql, logId);
+        return rowsAffected > 0;
     }
 
     public void updateExerciseLog(ExerciseLog updatedExerciseLog) {

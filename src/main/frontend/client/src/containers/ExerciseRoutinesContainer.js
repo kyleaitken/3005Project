@@ -1,4 +1,8 @@
-import { getExerciseRoutines, addExerciseRoutine, deleteExerciseRoutine, addExerciseToRoutine } from "../api/memberApi";
+import { getExerciseRoutines, 
+        addExerciseRoutine, 
+        deleteExerciseRoutine, 
+        addExerciseToRoutine,
+        removeExerciseFromRoutine } from "../api/memberApi";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from 'react-router-dom';
@@ -74,11 +78,29 @@ const ExerciseRoutinesContainer = () => {
         }
     }
 
+    const handleRemoveExerciseFromRoutine = async (logId) => {
+        try {
+            const res = await removeExerciseFromRoutine(userId, logId);
+            if (res === "Success") {
+                console.log('exercise removed');
+                getRoutines(userId);
+            } else {
+                window.alert("Unable to remove exercise")
+            }
+        } catch {
+            window.alert("Unable to remove exercise")
+        }
+    }
+
     return (
         <RoutinesView>
             <Title>Exercise Routines</Title>
             <AddRoutineButton onClick={addNewRoutine}>Add Routine</AddRoutineButton>
-            <ExerciseRoutinesTable handleDeleteRoutine={handleDeleteRoutine} routines={routines}/>
+            <ExerciseRoutinesTable 
+                handleDeleteRoutine={handleDeleteRoutine} 
+                handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine} 
+                routines={routines}
+            />
             <AddExerciseForm handleAddExerciseToRoutine={handleAddExerciseToRoutine}/>
         </RoutinesView>
     )

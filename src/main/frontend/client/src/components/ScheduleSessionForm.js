@@ -86,18 +86,18 @@ const Label = styled.label`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    font-size: 20px;
+    font-size: 16px;
 `;
 
 const Input = styled.input`
     margin-top: 5px;
-    font-size: 20px;
+    font-size: 16px;
     
 `;
 
 const Select = styled.select`
     margin-top: 5px;
-    font-size: 20px;
+    font-size: 16px;
 `;
 
 const SubmitButton = styled.button`
@@ -108,7 +108,7 @@ const SubmitButton = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 14px;
 
     &:hover {
         background-color: #0056b3;
