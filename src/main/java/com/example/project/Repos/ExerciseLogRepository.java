@@ -43,16 +43,18 @@ public class ExerciseLogRepository {
         return Optional.empty();
     }
 
-    public void save(ExerciseLog log) {
+    public boolean save(ExerciseLog log) {
         String sql = "INSERT INTO ExerciseLog (routine_id, exercise_name, num_sets, num_reps, duration, weight) VALUES (?, ?, ?, ?, ?, ?)";
         
-        jdbcTemplate.update(sql,
+        int rowsAffected = jdbcTemplate.update(sql,
             log.getRoutineId(),
             log.getExerciseName(),
             log.getNumSets(),
             log.getNumReps(),
             log.getDuration(),
             log.getWeight());
+        
+        return rowsAffected > 0;
     }
 
     public void deleteLog(Long logId) {

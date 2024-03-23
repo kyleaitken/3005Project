@@ -1,4 +1,4 @@
-import { getExerciseRoutines, addExerciseRoutine, deleteExerciseRoutine } from "../api/memberApi";
+import { getExerciseRoutines, addExerciseRoutine, deleteExerciseRoutine, addExerciseToRoutine } from "../api/memberApi";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from 'react-router-dom';
@@ -53,12 +53,33 @@ const ExerciseRoutinesContainer = () => {
         }
     }
 
+    const handleAddExerciseToRoutine = async (routineNum, exerciseName, sets, reps, duration, weight) => {
+        console.log(routineNum, exerciseName, sets, reps, duration, weight);
+        if (routines && routines.length >= routineNum) {
+            const routineId = routines[routineNum - 1].routineId; 
+
+            try {
+                const response = await addExerciseToRoutine(userId, routineId, exerciseName, sets, reps, duration, weight);
+                if (response.message === "Success") {
+                    getRoutines(userId);
+                } else {
+                    window.alert("Unable to add exercise to routine");
+                }
+            } catch {
+                window.alert("Unable to add exercise to routine");
+            }
+
+        } else {
+            window.alert("Please enter a valid routine number");
+        }
+    }
+
     return (
         <RoutinesView>
             <Title>Exercise Routines</Title>
             <AddRoutineButton onClick={addNewRoutine}>Add Routine</AddRoutineButton>
             <ExerciseRoutinesTable handleDeleteRoutine={handleDeleteRoutine} routines={routines}/>
-            <AddExerciseForm />
+            <AddExerciseForm handleAddExerciseToRoutine={handleAddExerciseToRoutine}/>
         </RoutinesView>
     )
 }
@@ -76,6 +97,18 @@ const Title = styled.h1`
 `;
 
 const AddRoutineButton = styled.button`
-  margin: 20px auto;
+    align-self: center;
+  width: 200px;
   padding: 10px 20px;
+
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+      background-color: #0056b3;
+  }
 `;

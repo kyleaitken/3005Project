@@ -47,8 +47,12 @@ public class ExerciseRoutineService {
         return exerciseRoutineRepository.findRoutinesAndExercises(memberId);
     }
 
-    public void addExerciseLogToRoutine(ExerciseLog log) {
-        exerciseLogRepository.save(log);
+    public ResponseEntity<?> addExerciseLogToRoutine(ExerciseLog log) {
+        boolean exerciseAdded = exerciseLogRepository.save(log);
+        if (exerciseAdded) {
+            return ResponseEntity.ok().body("{\"message\": \"Success\"}");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Failed\"}"); 
     }
 
     public void deleteExerciseLog(Long logId) {

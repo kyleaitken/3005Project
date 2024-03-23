@@ -69,3 +69,7 @@ export const deleteExerciseRoutine = (memberId, routineId) => {
     const url = API_ENDPOINTS.deleteExerciseRoutine(memberId, routineId);
     return del(url);
 }
+
+export const addExerciseToRoutine = (userId, routineId, exerciseName, numSets, numReps, duration, weight) => {
+    return post(API_ENDPOINTS.addExerciseToRoutine(userId, routineId), { exerciseName, numSets, numReps, duration, weight });
+}
