@@ -19,4 +19,9 @@ export const API_ENDPOINTS = {
     addExerciseToRoutine: (memberId, routineId) => 
       `${BASE_URL}/members/${memberId}/routines/${routineId}/addExercise`,
     removeExerciseFromRoutine: (memberId, logId) => `${BASE_URL}/members/${memberId}/routines/removeExercise/${logId}`,
+    getInProgressGoals: (memberId) => `${BASE_URL}/members/${memberId}/goals/incomplete`,
+    getCompletedGoals: (memberId) => `${BASE_URL}/members/${memberId}/goals/completed`,
+    completeGoal: (memberId, goalId) => `${BASE_URL}/members/${memberId}/goals/complete/${goalId}`,
+    deleteGoal: (memberId, goalId) => `${BASE_URL}/members/${memberId}/goals/delete/${goalId}`,
+    addGoal: (memberId) => `${BASE_URL}/members/${memberId}/goals/add`
   };

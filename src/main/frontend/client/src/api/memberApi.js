@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from './config';
-import { get, del, post} from './utils';
+import { get, del, post, put} from './utils';
 
 export const getMemberSchedule = (memberId) => {
     const url = API_ENDPOINTS.memberSchedule(memberId);
@@ -77,4 +77,28 @@ export const addExerciseToRoutine = (userId, routineId, exerciseName, numSets, n
 export const removeExerciseFromRoutine = (userId, logId) => {
     const url = API_ENDPOINTS.removeExerciseFromRoutine(userId, logId);
     return del(url);
+}
+
+export const getCompletedGoals = (memberId) => {
+    const url = API_ENDPOINTS.getCompletedGoals(memberId);
+    return get(url);
+}
+
+export const getInProgressGoals = (memberId) => {
+    const url = API_ENDPOINTS.getInProgressGoals(memberId);
+    return get(url);
+}
+
+export const setGoalComplete = (memberId, goalId) => {
+    const url = API_ENDPOINTS.completeGoal(memberId, goalId);
+    return put(url);
+}
+
+export const deleteGoal = (userId, goalId) => {
+    const url = API_ENDPOINTS.deleteGoal(userId, goalId);
+    return del(url);
+}
+
+export const addGoal = (userId, description, targetDate) => {
+    return post(API_ENDPOINTS.addGoal(userId), { description, targetDate });
 }

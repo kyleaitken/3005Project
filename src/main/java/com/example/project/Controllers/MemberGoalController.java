@@ -50,24 +50,21 @@ public class MemberGoalController {
         return ResponseEntity.ok(updatedMemberGoal); 
     }
 
-    @PutMapping("/{goalId}/complete")
+    @PutMapping("/complete/{goalId}")
     public ResponseEntity<?> markGoalAsComplete(@PathVariable Long memberId, @PathVariable Long goalId) {
-        memberGoalService.markGoalAsComplete(memberId, goalId);
-        return ResponseEntity.ok().build();
+        return memberGoalService.markGoalAsComplete(memberId, goalId);
     }
 
     // delete goal
-    @DeleteMapping("/incomplete/{goalId}")
+    @DeleteMapping("/delete/{goalId}")
     public ResponseEntity<?> deleteMemberGoalById(@PathVariable Long memberId, @PathVariable Long goalId) {
-        memberGoalService.deleteGoal(memberId, goalId);
-        return ResponseEntity.ok().build();
+        return memberGoalService.deleteGoal(memberId, goalId);
     }
 
     @PostMapping("/add")
 	public ResponseEntity<?> addMemberGoal(@PathVariable Long memberId, @RequestBody MemberGoal goal) {
         goal.setMemberId(memberId);
-        memberGoalService.save(goal);
-        return ResponseEntity.ok().build();
+        return memberGoalService.save(goal);
 	}
 
 

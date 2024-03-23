@@ -3,6 +3,8 @@ package com.example.project.Services;
 import com.example.project.Models.MemberGoal;
 import com.example.project.Repos.MemberGoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,18 +42,26 @@ public class MemberGoalService {
     }
 
     @Transactional
-    public void deleteGoal(Long memberId, Long goalId) {
-        memberGoalRepository.deleteGoal(memberId, goalId);
+    public ResponseEntity<?> deleteGoal(Long memberId, Long goalId) {
+        boolean goalDeleted = memberGoalRepository.deleteGoal(memberId, goalId);
+        if (goalDeleted) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Failed");
     }
 
-    public void save(MemberGoal goal) {
-        memberGoalRepository.save(goal);
+    public ResponseEntity<?> save(MemberGoal goal) {
+        boolean goalAdded = memberGoalRepository.save(goal);
+        if (goalAdded) {
+            return ResponseEntity.ok().body("{\"message\": \"Success\"}");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed"); 
     }
 
 
-    public void markGoalAsComplete(Long memberId, Long goalId) {
+    public ResponseEntity<?> markGoalAsComplete(Long memberId, Long goalId) {
         LocalDate completionDate = LocalDate.now(); 
-        memberGoalRepository.updateGoalCompletion(goalId, memberId, true, completionDate);
+        boolean goalUpdated = memberGoalRepository.updateGoalCompletion(goalId, memberId, true, completionDate);
+        if (goalUpdated) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Failed");      
     }
 
 

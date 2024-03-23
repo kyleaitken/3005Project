@@ -95,27 +95,31 @@ public class MemberGoalRepository {
                 updatedMemberGoal.getGoalId());
     }
 
-    public void deleteGoal(Long memberId, Long goalId) {
+    public boolean deleteGoal(Long memberId, Long goalId) {
         String sql = "DELETE FROM MemberGoal WHERE member_id = ? AND goal_id = ?";
-        jdbcTemplate.update(sql, memberId, goalId);
+        int affectedRows = jdbcTemplate.update(sql, memberId, goalId);
+        return affectedRows > 0;
     }
 
 
-    public void save(MemberGoal goal) {
+    public boolean save(MemberGoal goal) {
         String sql = "INSERT INTO MemberGoal (member_id, description, target_date, completed, completed_date) VALUES (?, ?, ?, ?, ?)";
         
-        jdbcTemplate.update(sql,
+        int rowsAffected = jdbcTemplate.update(sql,
             goal.getMemberId(),
             goal.getDescription(),
             java.sql.Date.valueOf(goal.getTargetDate()),
             goal.isCompleted(),
             goal.getCompletedDate() != null ? java.sql.Date.valueOf(goal.getCompletedDate()) : null);
+
+        return rowsAffected > 0;
     }
 
 
-    public void updateGoalCompletion(Long goalId, Long memberId, boolean completed, LocalDate completedDate) {
+    public boolean updateGoalCompletion(Long goalId, Long memberId, boolean completed, LocalDate completedDate) {
         String sql = "UPDATE MemberGoal SET completed = ?, completed_date = ? WHERE goal_id = ? AND member_id = ?";
-        jdbcTemplate.update(sql, completed, completedDate, goalId, memberId);
+        int affectedRows = jdbcTemplate.update(sql, completed, completedDate, goalId, memberId);
+        return affectedRows > 0;
     }
 
 
