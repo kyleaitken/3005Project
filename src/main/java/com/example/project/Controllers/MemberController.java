@@ -203,7 +203,7 @@ public class MemberController {
     public ResponseEntity<?> payInvoice(@PathVariable Integer paymentId) {
         try {
             invoiceService.payMemberInvoice(paymentId);
-            return ResponseEntity.ok().build(); 
+            return ResponseEntity.ok().body("Success"); 
         } catch (Exception e) {
             return ResponseEntity
                 .status(HttpStatus.NOT_FOUND) 

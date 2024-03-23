@@ -23,5 +23,10 @@ export const API_ENDPOINTS = {
     getCompletedGoals: (memberId) => `${BASE_URL}/members/${memberId}/goals/completed`,
     completeGoal: (memberId, goalId) => `${BASE_URL}/members/${memberId}/goals/complete/${goalId}`,
     deleteGoal: (memberId, goalId) => `${BASE_URL}/members/${memberId}/goals/delete/${goalId}`,
-    addGoal: (memberId) => `${BASE_URL}/members/${memberId}/goals/add`
+    addGoal: (memberId) => `${BASE_URL}/members/${memberId}/goals/add`,
+    getMemberPaidInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/paid`,
+    getMemberUnpaidInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/unpaid`,
+    getMemberProcessingInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/processing`,
+    getMemberCancelledInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/cancelled`,
+    payMemberInvoice: (paymentId) => `${BASE_URL}/members/invoices/pay/${paymentId}`
   };

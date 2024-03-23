@@ -39,13 +39,10 @@ public class InvoiceService {
         return invoiceRepository.getCancelledMemberInvoices(memberId);
     }
 
-    public void payMemberInvoice(Integer paymentId) throws Exception {
-        Optional<Invoice> invoiceOptional = invoiceRepository.findById(paymentId);
-        if (!invoiceOptional.isPresent()) {
-            // Handle the case where the invoice does not exist, e.g., throw an exception
-            throw new Exception("Invoice with ID " + paymentId + " not found.");
-        }       
-         invoiceRepository.payMemberInvoice(paymentId);
+    public ResponseEntity<?> payMemberInvoice(Integer paymentId) throws Exception {  
+        boolean invoicePaid = invoiceRepository.payMemberInvoice(paymentId);
+        if (invoicePaid) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed");
     }
 
     public List<Invoice> getProcessingInvoices() {
