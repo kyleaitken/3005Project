@@ -7,6 +7,7 @@ import MemberSessions from "./MemberSessions";
 import MemberClasses from "./MemberClasses";
 import AvailableClasses from "./AvailableClasses";
 import ExerciseRoutinesContainer from "./ExerciseRoutinesContainer";
+import MemberGoals from "./MemberGoals";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -24,6 +25,7 @@ const AppContent = () => {
                 <Route path="/classes" element={<MemberClasses />} />
                 <Route path="/joinClass" element={<AvailableClasses />} />
                 <Route path="/routines" element={<ExerciseRoutinesContainer />} />
+                <Route path="/goals" element={<MemberGoals />} />
             </Routes>
         </AppContentView>
     )

@@ -27,3 +27,13 @@ export const del = async (url) => {
   });
   return response.text();
 };
+
+export const put = async (url) => {
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.text();
+};

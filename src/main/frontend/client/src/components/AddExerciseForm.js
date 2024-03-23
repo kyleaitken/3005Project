@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const AddExerciseForm = (props) => {
     const [routineNum, setRoutineNum] = useState('');
@@ -106,7 +106,7 @@ const Form = styled.form`
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 const Input = styled.input`
