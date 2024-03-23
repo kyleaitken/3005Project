@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ExerciseRoutines = ({ handleDeleteRoutine, routines }) => {
+const ExerciseRoutines = (props) => {
+
+  const { handleDeleteRoutine, handleRemoveExerciseFromRoutine, routines } = props;
+
   return (
     <div>
       {routines && routines.length > 0 ? (
@@ -19,6 +22,7 @@ const ExerciseRoutines = ({ handleDeleteRoutine, routines }) => {
                   <TableHeader>Reps</TableHeader>
                   <TableHeader>Weight</TableHeader>
                   <TableHeader>Duration (mins)</TableHeader>
+                  <TableHeader />
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +33,11 @@ const ExerciseRoutines = ({ handleDeleteRoutine, routines }) => {
                     <TableCell>{exercise.numReps || '-'}</TableCell>
                     <TableCell>{exercise.weight ? `${exercise.weight} kg` : '-'}</TableCell>
                     <TableCell>{exercise.duration || '-'}</TableCell>
+                    <TableCell>
+                      <RemoveExerciseButton onClick={() => handleRemoveExerciseFromRoutine(exercise.logId)}>
+                        Remove
+                      </RemoveExerciseButton>
+                    </TableCell>
                   </tr>
                 ))}
               </tbody>
@@ -68,7 +77,7 @@ const RemoveRoutineButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
 
   &:hover {
       background-color: #AB0606;
@@ -91,9 +100,23 @@ const TableCell = styled.td`
   text-align: center;
   padding: 10px;
   border: 1px solid #ddd;
+  width: 350px;
 `;
 
 
 const NoRoutinesMessage = styled.p`
   text-align: center;
 `;
+
+const RemoveExerciseButton = styled.button`
+  background-color: #E63333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+      background-color: #AB0606;
+  }
+`

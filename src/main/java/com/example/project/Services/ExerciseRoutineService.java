@@ -40,7 +40,7 @@ public class ExerciseRoutineService {
     public ResponseEntity<?> deleteRoutine(Long routineId) {
         boolean routineDeleted = exerciseRoutineRepository.deleteRoutine(routineId);
         if (routineDeleted) return ResponseEntity.ok().body("Success");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Failed\"}");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed");
     }
 
     public List<ExerciseRoutineDto> findRoutinesAndExercises(Long memberId) {
@@ -55,8 +55,12 @@ public class ExerciseRoutineService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Failed\"}"); 
     }
 
-    public void deleteExerciseLog(Long logId) {
-        exerciseLogRepository.deleteLog(logId);
+    public ResponseEntity<?> deleteExerciseLog(Long logId) {
+        boolean exerciseDeleted = exerciseLogRepository.deleteLog(logId);
+        if (exerciseDeleted) {
+            return ResponseEntity.ok().body("Success");
+        } 
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed");
     }
 
     public void updateExerciseLog(Long logId, ExerciseLog updatedExerciseLog) {

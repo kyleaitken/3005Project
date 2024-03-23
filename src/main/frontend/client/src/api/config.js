@@ -18,5 +18,5 @@ export const API_ENDPOINTS = {
     deleteExerciseRoutine: (memberId, routineId) => `${BASE_URL}/members/${memberId}/routines/delete/${routineId}`,
     addExerciseToRoutine: (memberId, routineId) => 
       `${BASE_URL}/members/${memberId}/routines/${routineId}/addExercise`,
-
+    removeExerciseFromRoutine: (memberId, logId) => `${BASE_URL}/members/${memberId}/routines/removeExercise/${logId}`,
   };

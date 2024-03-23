@@ -69,10 +69,9 @@ public class ExerciseRoutineController {
     }
 
     // delete an exercise log
-    @DeleteMapping("/{logId}")
+    @DeleteMapping("/removeExercise/{logId}")
     public ResponseEntity<?> deleteExerciseLog(@PathVariable Long logId) {
-        exerciseRoutineService.deleteExerciseLog(logId);
-        return ResponseEntity.ok().build();
+        return exerciseRoutineService.deleteExerciseLog(logId);
     }
 
     // updateExerciseLog

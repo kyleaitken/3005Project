@@ -45,7 +45,8 @@ const MemberClassesTable = (props) => {
                                 <TableCell>{item.time}</TableCell>
                                 <TableCell>{item.trainerName}</TableCell>
                                 <TableCell>{item.roomName}</TableCell>
-                                <TableCell>{type === "Upcoming" || type === "Available" ? <LeaveOrJoinClassButton classId={item.classId}/> :  <DummyView/>}</TableCell>
+                                <TableCell>{type === "Upcoming" || type === "Available" 
+                                ? <LeaveOrJoinClassButton classId={item.classId}/> :  <DummyView/>}</TableCell>
                             </TableRow>
                         ))}
                     </tbody>
@@ -84,18 +85,17 @@ const TableCell = styled.td`
     padding: 20px 60px 20px 50px;
     border-bottom: 1px solid #ddd;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
 `;
 
 const ActionButton = styled.button`
-    padding: 10px 20px;
     background-color: red; 
     width: 170px;
     align-self: flex-end;
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 5px;
 
     &:hover {
