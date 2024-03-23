@@ -9,7 +9,6 @@ const SideBarContainer = styled.div`
   flex-basis: 250px;
   flex-direction: column;
   width: 250px; 
-  height: 100vh;
   background-color: #f0f0f0; 
   padding: 20px;
 `;
@@ -42,3 +41,5 @@ const NavigationSideBar = () => {
 };
 
 export default NavigationSideBar;
+
+

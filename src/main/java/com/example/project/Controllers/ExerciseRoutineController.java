@@ -62,11 +62,10 @@ public class ExerciseRoutineController {
 
     // add an exerciseLog to a routine
 
-    @PostMapping("/{routineId}/exercises")
+    @PostMapping("/{routineId}/addExercise")
     public ResponseEntity<?> addExerciseLogToRoutine(@PathVariable Long memberId, @PathVariable Long routineId, @RequestBody ExerciseLog exerciseLog) {
         exerciseLog.setRoutineId(routineId);
-        exerciseRoutineService.addExerciseLogToRoutine(exerciseLog);
-        return ResponseEntity.ok().build();
+        return exerciseRoutineService.addExerciseLogToRoutine(exerciseLog);
     }
 
     // delete an exercise log

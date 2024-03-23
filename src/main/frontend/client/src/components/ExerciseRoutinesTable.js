@@ -62,6 +62,17 @@ const SubTitle = styled.h2`
 const RemoveRoutineButton = styled.button`
   padding: 5px 10px;
   margin-left: 50px;
+
+  background-color: #E63333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+      background-color: #AB0606;
+  }
 `;
 
 const Table = styled.table`
