@@ -1,8 +1,11 @@
 package com.example.project.Models;
 
+import java.time.LocalDate;
+
 public class Invoice {
     private Integer paymentId;
     private Integer memberId;
+    private LocalDate date;
     private String type;
     private Integer cost;
     private String status;
@@ -12,9 +15,10 @@ public class Invoice {
     }
 
     // Parameterized constructor
-    public Invoice(Integer paymentId, Integer memberId, String type, Integer cost, String status) {
+    public Invoice(Integer paymentId, Integer memberId, LocalDate date, String type, Integer cost, String status) {
         this.paymentId = paymentId;
         this.memberId = memberId;
+        this.date = date;
         this.type = type;
         this.cost = cost;
         this.status = status;
@@ -41,6 +45,10 @@ public class Invoice {
         return status;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     // Setters
     public void setPaymentId(Integer paymentId) {
         this.paymentId = paymentId;
@@ -60,6 +68,10 @@ public class Invoice {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setDate(LocalDate d) {
+        this.date = d;
     }
 
 }

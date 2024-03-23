@@ -102,3 +102,28 @@ export const deleteGoal = (userId, goalId) => {
 export const addGoal = (userId, description, targetDate) => {
     return post(API_ENDPOINTS.addGoal(userId), { description, targetDate });
 }
+
+export const getMemberPaidInvoices = (memberId) => {
+    const url = API_ENDPOINTS.getMemberPaidInvoices(memberId);
+    return get(url);
+}
+
+export const getMemberUnpaidInvoices = (memberId) => {
+    const url = API_ENDPOINTS.getMemberUnpaidInvoices(memberId);
+    return get(url);
+}
+
+export const getMemberProcessingInvoices = (memberId) => {
+    const url = API_ENDPOINTS.getMemberProcessingInvoices(memberId);
+    return get(url);
+}
+
+export const getMemberCancelledInvoices = (memberId) => {
+    const url = API_ENDPOINTS.getMemberCancelledInvoices(memberId);
+    return get(url);
+}
+
+export const payMemberInvoice = (paymentId) => {
+    const url = API_ENDPOINTS.payMemberInvoice(paymentId);
+    return put(url);
+}

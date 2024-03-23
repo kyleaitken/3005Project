@@ -67,7 +67,14 @@ public class InvoiceRepository {
     }
 
     public List<Invoice> getUnpaidMemberInvoices(Integer memberId) {
-        String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Unpaid'";
+        String sql = "SELECT I.*, COALESCE(FC.date, TS.date) AS invoice_date "
+            + "FROM invoice I "
+            + "LEFT JOIN ClassInvoice CI ON I.payment_id = CI.payment_id "
+            + "LEFT JOIN SessionInvoice SI ON I.payment_id = SI.payment_id "
+            + "LEFT JOIN fitnessClass FC ON CI.class_id = FC.class_id "
+            + "LEFT JOIN TrainingSession TS ON SI.session_id = TS.session_id "
+            + "WHERE I.member_id = ? AND I.status = 'Unpaid' "
+            + "ORDER BY I.type;";
 
         List<Invoice> invoices = new ArrayList<>();
 
@@ -79,6 +86,12 @@ public class InvoiceRepository {
                     Invoice invoice = new Invoice();
                     invoice.setPaymentId(resultSet.getInt("payment_id"));
                     invoice.setMemberId(memberId);
+                    java.sql.Date sqlDate = resultSet.getDate("invoice_date");
+                    if (sqlDate != null) {
+                        invoice.setDate(sqlDate.toLocalDate());
+                    } else {
+                        invoice.setDate(null); 
+                    }
                     invoice.setCost(resultSet.getInt("cost"));
                     invoice.setType(resultSet.getString("type"));
                     invoice.setStatus(resultSet.getString("status"));
@@ -93,7 +106,14 @@ public class InvoiceRepository {
 
 
     public List<Invoice> getPaidMemberInvoices(Integer memberId) {
-        String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Paid'";
+        String sql = "SELECT I.*, COALESCE(FC.date, TS.date) AS invoice_date "
+            + "FROM invoice I "
+            + "LEFT JOIN ClassInvoice CI ON I.payment_id = CI.payment_id "
+            + "LEFT JOIN SessionInvoice SI ON I.payment_id = SI.payment_id "
+            + "LEFT JOIN fitnessClass FC ON CI.class_id = FC.class_id "
+            + "LEFT JOIN TrainingSession TS ON SI.session_id = TS.session_id "
+            + "WHERE I.member_id = ? AND I.status = 'Paid' "
+            + "ORDER BY I.type;";
 
         List<Invoice> invoices = new ArrayList<>();
 
@@ -105,6 +125,14 @@ public class InvoiceRepository {
                     Invoice invoice = new Invoice();
                     invoice.setPaymentId(resultSet.getInt("payment_id"));
                     invoice.setMemberId(memberId);
+
+                    java.sql.Date sqlDate = resultSet.getDate("invoice_date");
+                    if (sqlDate != null) {
+                        invoice.setDate(sqlDate.toLocalDate());
+                    } else {
+                        invoice.setDate(null); 
+                    }
+
                     invoice.setCost(resultSet.getInt("cost"));
                     invoice.setType(resultSet.getString("type"));
                     invoice.setStatus(resultSet.getString("status"));
@@ -119,7 +147,14 @@ public class InvoiceRepository {
 
 
     public List<Invoice> getProcessingMemberInvoices(Integer memberId) {
-        String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Processing'";
+        String sql = "SELECT I.*, COALESCE(FC.date, TS.date) AS invoice_date "
+            + "FROM invoice I "
+            + "LEFT JOIN ClassInvoice CI ON I.payment_id = CI.payment_id "
+            + "LEFT JOIN SessionInvoice SI ON I.payment_id = SI.payment_id "
+            + "LEFT JOIN fitnessClass FC ON CI.class_id = FC.class_id "
+            + "LEFT JOIN TrainingSession TS ON SI.session_id = TS.session_id "
+            + "WHERE I.member_id = ? AND I.status = 'Processing' "
+            + "ORDER BY I.type;";
 
         List<Invoice> invoices = new ArrayList<>();
 
@@ -131,6 +166,14 @@ public class InvoiceRepository {
                     Invoice invoice = new Invoice();
                     invoice.setPaymentId(resultSet.getInt("payment_id"));
                     invoice.setMemberId(memberId);
+
+                    java.sql.Date sqlDate = resultSet.getDate("invoice_date");
+                    if (sqlDate != null) {
+                        invoice.setDate(sqlDate.toLocalDate());
+                    } else {
+                        invoice.setDate(null); 
+                    }    
+
                     invoice.setCost(resultSet.getInt("cost"));
                     invoice.setType(resultSet.getString("type"));
                     invoice.setStatus(resultSet.getString("status"));
@@ -169,8 +212,15 @@ public class InvoiceRepository {
 
 
     public List<Invoice> getCancelledMemberInvoices(Integer memberId) {
-        String sql = "SELECT * FROM Invoice WHERE member_id = ? AND status = 'Cancelled'";
-
+        String sql = "SELECT I.*, COALESCE(FC.date, TS.date) AS invoice_date "
+            + "FROM invoice I "
+            + "LEFT JOIN ClassInvoice CI ON I.payment_id = CI.payment_id "
+            + "LEFT JOIN SessionInvoice SI ON I.payment_id = SI.payment_id "
+            + "LEFT JOIN fitnessClass FC ON CI.class_id = FC.class_id "
+            + "LEFT JOIN TrainingSession TS ON SI.session_id = TS.session_id "
+            + "WHERE I.member_id = ? AND I.status = 'Cancelled' "
+            + "ORDER BY I.type;";
+            
         List<Invoice> invoices = new ArrayList<>();
 
         try (Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -181,6 +231,14 @@ public class InvoiceRepository {
                     Invoice invoice = new Invoice();
                     invoice.setPaymentId(resultSet.getInt("payment_id"));
                     invoice.setMemberId(memberId);
+                    
+                    java.sql.Date sqlDate = resultSet.getDate("invoice_date");
+                    if (sqlDate != null) {
+                        invoice.setDate(sqlDate.toLocalDate());
+                    } else {
+                        invoice.setDate(null); 
+                    }
+
                     invoice.setCost(resultSet.getInt("cost"));
                     invoice.setType(resultSet.getString("type"));
                     invoice.setStatus(resultSet.getString("status"));
@@ -190,13 +248,13 @@ public class InvoiceRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(invoices);
         return invoices;
     }
 
-    public void payMemberInvoice(Integer paymentId) {
+    public boolean payMemberInvoice(Integer paymentId) {
         String sql = "UPDATE Invoice Set status = 'Processing' where payment_id = ?";
-        jdbcTemplate.update(sql, paymentId);
+        int affectedRows = jdbcTemplate.update(sql, paymentId);
+        return affectedRows > 0;
     }
 
     public boolean processInvoice(Integer paymentId) {
@@ -215,6 +273,7 @@ public class InvoiceRepository {
         return (rs, rowNum) -> new Invoice(
             rs.getInt("payment_id"),
             rs.getInt("member_id"),
+            rs.getDate("date").toLocalDate(),
             rs.getString("type"),
             rs.getInt("cost"),
             rs.getString("status")
