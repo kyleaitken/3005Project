@@ -30,5 +30,7 @@ export const API_ENDPOINTS = {
     getMemberCancelledInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/cancelled`,
     payMemberInvoice: (paymentId) => `${BASE_URL}/members/invoices/pay/${paymentId}`,
     getMemberHealthInfo: (memberId) => `${BASE_URL}/memberHealthInfo/${memberId}`,
-    updateMemberHealthInfo: (memberId) => `${BASE_URL}/memberHealthInfo/update/${memberId}`
+    updateMemberHealthInfo: (memberId) => `${BASE_URL}/memberHealthInfo/update/${memberId}`,
+    getMemberProfile: (memberId) => `${BASE_URL}/members/${memberId}`,
+    updateMemberProfile: (memberId) => `${BASE_URL}/members/updateProfile/${memberId}`
   };

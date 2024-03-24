@@ -66,9 +66,16 @@ public class MemberRepository {
             member.getPhone(), member.getAddress(), member.getEmergencyPhone());
     }
 
-    public void update(Member member) {
-        String sql = "UPDATE members SET email = ?, password = ?, first_name = ?, last_name = ?, birth_date = ?, phone = ?, address = ?, emergency_phone = ? WHERE member_id = ?";
-        jdbcTemplate.update(sql, member.getEmail(), member.getPassword(), member.getFirstName(), member.getLastName(), java.sql.Date.valueOf(member.getBirthDate()), member.getPhone(), member.getAddress(), member.getEmergencyPhone(), member.getMemberId());
+    public boolean update(Member member) {
+        String sql = "UPDATE members SET email = ?, phone = ?, address = ?, emergency_phone = ? WHERE member_id = ?";
+        int affectedRows = jdbcTemplate.update(sql,
+                                                member.getEmail(), 
+                                                member.getPhone(), 
+                                                member.getAddress(), 
+                                                member.getEmergencyPhone(), 
+                                                member.getMemberId());
+        System.out.println(affectedRows);
+        return affectedRows > 0;
     }
 
     public List<TrainerMemberView> getMembersForTrainer() {

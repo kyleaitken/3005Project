@@ -6,6 +6,8 @@ import com.example.project.Repos.TrainerRepository;
 import com.example.project.dto.MemberScheduleView;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.Optional;
@@ -48,11 +50,15 @@ public class MemberService {
     }
 
     // Update a member's info
-    public void updateMember(Long memberId, Member updatedMember) {
-        memberRepository.findById(memberId)
-                                    .orElseThrow(() -> new RuntimeException("Member not found"));
+    public ResponseEntity<?> updateMember(Long memberId, Member updatedMember) {
         updatedMember.setMemberId(memberId);
-        memberRepository.update(updatedMember);
+        boolean memberUpdated = memberRepository.update(updatedMember);
+        if (memberUpdated) {
+            return ResponseEntity.ok(Map.of("message", "Success"));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "An error occurred during updating."));
+        }
+    
     }
 
     public List<MemberScheduleView> getMemberSchedule(Integer memberId) {

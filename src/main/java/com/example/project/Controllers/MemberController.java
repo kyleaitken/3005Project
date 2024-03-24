@@ -72,10 +72,10 @@ public class MemberController {
 	}
 
     // Update an existing member's information
-    @PutMapping("/{memberId}")
-    public ResponseEntity<Member> updateMember(@PathVariable Long memberId, @RequestBody Member updatedMember) {
-        memberService.updateMember(memberId, updatedMember);
-        return ResponseEntity.ok(updatedMember); 
+    @PutMapping("/updateProfile/{memberId}")
+    public ResponseEntity<?> updateMember(@PathVariable Long memberId, @RequestBody Member updatedMember) {
+        System.out.println("Updating member info");
+        return memberService.updateMember(memberId, updatedMember);
     }
 
 

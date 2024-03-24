@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Member {
     private Long memberId;
-    private String email;
-    private String password;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private String email;
+    private String password;
     private String phone;
     private String address;
     private String emergencyPhone;
