@@ -28,5 +28,7 @@ export const API_ENDPOINTS = {
     getMemberUnpaidInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/unpaid`,
     getMemberProcessingInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/processing`,
     getMemberCancelledInvoices: (memberId) => `${BASE_URL}/members/${memberId}/invoices/cancelled`,
-    payMemberInvoice: (paymentId) => `${BASE_URL}/members/invoices/pay/${paymentId}`
+    payMemberInvoice: (paymentId) => `${BASE_URL}/members/invoices/pay/${paymentId}`,
+    getMemberHealthInfo: (memberId) => `${BASE_URL}/memberHealthInfo/${memberId}`,
+    updateMemberHealthInfo: (memberId) => `${BASE_URL}/memberHealthInfo/update/${memberId}`
   };

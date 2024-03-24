@@ -47,20 +47,22 @@ public class MemberHealthInfoRepository {
             memberHealthInfo.getWaistGirth());
     }
 
-    public void update(MemberHealthInfo memberHealthInfo) {
+    public boolean update(MemberHealthInfo memberHealthInfo) {
         String sql = "UPDATE memberhealthinfo SET height = ?, weight = ?, bmi = ?, " +
             "resting_heart_rate = ?, systolic_bp = ?, diastolic_bp = ?, waist_girth = ? " +
             "WHERE member_id = ?";
 
-        jdbcTemplate.update(sql,
-            memberHealthInfo.getMemberId(),
+        int rowsAffected = jdbcTemplate.update(sql,
             memberHealthInfo.getHeight(),
             memberHealthInfo.getWeight(),
             memberHealthInfo.getBmi(),
             memberHealthInfo.getRestingHeartRate(),
             memberHealthInfo.getSystolicBp(),
             memberHealthInfo.getDiastolicBp(),
-            memberHealthInfo.getWaistGirth());
+            memberHealthInfo.getWaistGirth(),
+            memberHealthInfo.getMemberId());
+
+        return rowsAffected > 0;
     }
 
     private RowMapper<MemberHealthInfo> memberHealthInfoRowMapper() {

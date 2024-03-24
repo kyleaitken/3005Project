@@ -37,3 +37,19 @@ export const put = async (url) => {
   });
   return response.text();
 };
+
+export const putWithBody = async (url, data) => {
+  const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data), 
+  });
+
+  if (!response.ok) {
+      throw new Error('Network response was not ok');
+  }
+
+  return response.json();
+};

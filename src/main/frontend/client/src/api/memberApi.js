@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from './config';
-import { get, del, post, put} from './utils';
+import { get, del, post, put, putWithBody} from './utils';
 
 export const getMemberSchedule = (memberId) => {
     const url = API_ENDPOINTS.memberSchedule(memberId);
@@ -127,3 +127,12 @@ export const payMemberInvoice = (paymentId) => {
     const url = API_ENDPOINTS.payMemberInvoice(paymentId);
     return put(url);
 }
+
+export const getMemberHealthInfo = (memberId) => {
+    const url = API_ENDPOINTS.getMemberHealthInfo(memberId);
+    return get(url);
+}
+
+export const updateMemberHealthInfo = (memberId, healthInfo) => {
+    return putWithBody(API_ENDPOINTS.updateMemberHealthInfo(memberId), healthInfo);
+};
