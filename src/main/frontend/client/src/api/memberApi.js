@@ -136,3 +136,12 @@ export const getMemberHealthInfo = (memberId) => {
 export const updateMemberHealthInfo = (memberId, healthInfo) => {
     return putWithBody(API_ENDPOINTS.updateMemberHealthInfo(memberId), healthInfo);
 };
+
+export const getMemberProfile = (memberId) => {
+    const url = API_ENDPOINTS.getMemberProfile(memberId);
+    return get(url);
+};
+
+export const updateMemberProfile = (memberId, profileInfo) => {
+    return putWithBody(API_ENDPOINTS.updateMemberProfile(memberId), profileInfo);
+};

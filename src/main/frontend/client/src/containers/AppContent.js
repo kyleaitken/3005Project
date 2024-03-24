@@ -10,6 +10,7 @@ import ExerciseRoutinesContainer from "./ExerciseRoutinesContainer";
 import MemberGoals from "./MemberGoals";
 import MemberInvoices from "./MemberInvoices";
 import MemberHealthInfo from "./MemberHealthInfo";
+import MemberProfile from "./MemberProfile";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -30,6 +31,7 @@ const AppContent = () => {
                 <Route path="/goals" element={<MemberGoals />} />
                 <Route path="/memberInvoices" element={<MemberInvoices />} />
                 <Route path="/healthInfo" element={<MemberHealthInfo/>} />
+                <Route path="/profile" element={<MemberProfile />} />
             </Routes>
         </AppContentView>
     )

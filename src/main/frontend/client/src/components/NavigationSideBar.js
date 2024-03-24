@@ -35,7 +35,7 @@ const NavigationSideBar = () => {
       <StyledLink to="/goals">Goals</StyledLink>
       <StyledLink to="/memberInvoices">Invoices</StyledLink>
       <StyledLink to="/healthInfo">Health Information</StyledLink>
-      <StyledLink to="/personal-information">Personal Information</StyledLink>
+      <StyledLink to="/profile">Profile</StyledLink>
     </SideBarContainer>
   );
 };
