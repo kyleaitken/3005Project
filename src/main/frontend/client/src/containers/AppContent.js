@@ -9,6 +9,7 @@ import AvailableClasses from "./AvailableClasses";
 import ExerciseRoutinesContainer from "./ExerciseRoutinesContainer";
 import MemberGoals from "./MemberGoals";
 import MemberInvoices from "./MemberInvoices";
+import MemberHealthInfo from "./MemberHealthInfo";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -28,6 +29,7 @@ const AppContent = () => {
                 <Route path="/routines" element={<ExerciseRoutinesContainer />} />
                 <Route path="/goals" element={<MemberGoals />} />
                 <Route path="/memberInvoices" element={<MemberInvoices />} />
+                <Route path="/healthInfo" element={<MemberHealthInfo/>} />
             </Routes>
         </AppContentView>
     )

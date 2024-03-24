@@ -112,7 +112,19 @@ const Container = styled.div``;
 
 const TabBar = styled.div``;
 
-const Tab = styled.button``;
+const Tab = styled.button`
+    padding: 10px 10px;
+    background-color: #007bff; 
+    width: 150px;
+    align-self: flex-end;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+        background-color: orange; 
+    }
+`;
 
 const Header = styled.h2`
     margin-left: 40px;

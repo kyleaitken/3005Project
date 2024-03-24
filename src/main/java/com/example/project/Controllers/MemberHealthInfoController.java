@@ -32,15 +32,13 @@ public class MemberHealthInfoController {
         if (memberHealthInfoOptional.isPresent()) {
             return ResponseEntity.ok(memberHealthInfoOptional.get());
         } else {
-            // Returning a custom error message with 404 Not Found
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member Health Info not found");
         }
     }
 
     // update member's health info
-    @PutMapping("/{memberId}")
-    public ResponseEntity<MemberHealthInfo> updateMemberHealthInfo(@PathVariable Long memberId, @RequestBody MemberHealthInfo updatedMemberHealthInfo) {
-        memberHealthInfoService.updateOrSaveMemberHealthInfo(memberId, updatedMemberHealthInfo);
-        return ResponseEntity.ok(updatedMemberHealthInfo); 
+    @PutMapping("/update/{memberId}")
+    public ResponseEntity<Optional<MemberHealthInfo>> updateMemberHealthInfo(@PathVariable Long memberId, @RequestBody MemberHealthInfo updatedMemberHealthInfo) {
+        return memberHealthInfoService.updateOrSaveMemberHealthInfo(memberId, updatedMemberHealthInfo);
     }
 }

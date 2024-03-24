@@ -34,7 +34,7 @@ const NavigationSideBar = () => {
       <StyledLink to="/routines">Exercise Routines</StyledLink>
       <StyledLink to="/goals">Goals</StyledLink>
       <StyledLink to="/memberInvoices">Invoices</StyledLink>
-      <StyledLink to="/health-information">Health Information</StyledLink>
+      <StyledLink to="/healthInfo">Health Information</StyledLink>
       <StyledLink to="/personal-information">Personal Information</StyledLink>
     </SideBarContainer>
   );
