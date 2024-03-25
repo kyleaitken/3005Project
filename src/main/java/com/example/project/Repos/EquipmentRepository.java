@@ -22,7 +22,7 @@ public class EquipmentRepository {
     }
 
     public List<Equipment> getEquipment() {
-        String sql = "SELECT * FROM Equipment";
+        String sql = "SELECT * FROM Equipment ORDER BY name ASC";
         List<Equipment> equipments = new ArrayList<>();
 
         try (Connection connection = jdbcTemplate.getDataSource().getConnection();

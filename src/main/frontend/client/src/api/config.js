@@ -44,5 +44,7 @@ export const API_ENDPOINTS = {
     getRooms: () => `${BASE_URL}/admin/rooms`,
     getAllInvoices: () => `${BASE_URL}/admin/invoices`,
     getProcessingInvoices: () => `${BASE_URL}/admin/invoices/processing`,
-    processInvoice: (paymentId) => `${BASE_URL}/admin/invoices/${paymentId}`
+    processInvoice: (paymentId) => `${BASE_URL}/admin/invoices/${paymentId}`,
+    getEquipment: () => `${BASE_URL}/admin/equipment`,
+    repairEquipment: (equipmentId) => `${BASE_URL}/admin/equipment/repair/${equipmentId}`
   };

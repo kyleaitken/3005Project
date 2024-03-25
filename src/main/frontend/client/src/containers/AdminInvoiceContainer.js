@@ -56,7 +56,7 @@ const AdminInvoiceContainer = () => {
                 <Tab onClick={() => changeInvoiceType("all")}>All Invoices</Tab>
                 <Tab onClick={() => changeInvoiceType("processing")}>Invoices To Process</Tab>
             </TabBar>
-            <Header>{currentType.charAt(0).toUpperCase() + currentType.slice(1)} Invoices</Header>
+            <Header>{currentType === "processing" ? <div>Invoices Awaiting Processing</div> : <div>All Invoices</div>}</Header>
             <ColumnHeaders>
                 <ColumnHeader>
                     Type
