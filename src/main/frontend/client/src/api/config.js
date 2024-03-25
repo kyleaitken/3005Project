@@ -34,3 +34,12 @@ export const API_ENDPOINTS = {
     getMemberProfile: (memberId) => `${BASE_URL}/members/${memberId}`,
     updateMemberProfile: (memberId) => `${BASE_URL}/members/updateProfile/${memberId}`
   };
+
+
+  export const ADMIN_API_ENDPOINTS = {
+    getAllClasses: () => `${BASE_URL}/admin/classes`,
+    updateClass: (classId) => `${BASE_URL}/admin/classes/update/${classId}`,
+    addClass: () => `${BASE_URL}/admin/classes/add`,
+    deleteClass: (classId) => `${BASE_URL}/admin/classes/delete/${classId}`,
+    getRooms: () => `${BASE_URL}/admin/rooms`
+  };

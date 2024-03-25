@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
-import { useAuth } from '../contexts/AuthContext'; // Adjust the path as necessary
+import { useAuth } from '../contexts/AuthContext'; 
+import { useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
     const { isLoggedIn, dispatch } = useAuth();
+    const navigate  = useNavigate();
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
+        navigate('/');
     };
 
     return (

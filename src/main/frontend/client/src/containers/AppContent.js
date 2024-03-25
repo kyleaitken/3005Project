@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useAuth } from "../contexts/AuthContext";
 import NavigationSideBar from "../components/NavigationSideBar";
+import AdminNavigationSideBar from "../components/AdminNavigationSideBar";
 import LoginScreen from "../screens/LoginScreen";
 import MemberSchedule from "./MemberSchedule";
 import MemberSessions from "./MemberSessions";
@@ -11,16 +12,17 @@ import MemberGoals from "./MemberGoals";
 import MemberInvoices from "./MemberInvoices";
 import MemberHealthInfo from "./MemberHealthInfo";
 import MemberProfile from "./MemberProfile";
+import AdminClassContainer from "./AdminClassContainer";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 
 const AppContent = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, userType } = useAuth();
 
     return (
         <AppContentView>
-            {isLoggedIn && <NavigationSideBar />}
+            {isLoggedIn && userType ==="Member" ? <NavigationSideBar /> : <AdminNavigationSideBar />}
             <Routes>
                 <Route path="/" element={<LoginScreen />} />
                 <Route path="/schedule" element={<MemberSchedule />} />
@@ -32,6 +34,7 @@ const AppContent = () => {
                 <Route path="/memberInvoices" element={<MemberInvoices />} />
                 <Route path="/healthInfo" element={<MemberHealthInfo/>} />
                 <Route path="/profile" element={<MemberProfile />} />
+                <Route path="/adminClasses" element={<AdminClassContainer />} />
             </Routes>
         </AppContentView>
     )

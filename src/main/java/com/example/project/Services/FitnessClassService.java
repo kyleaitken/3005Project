@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -69,7 +70,7 @@ public class FitnessClassService {
 
     public ResponseEntity<?> removeClass(Integer classId) {
         boolean removeSuccess = fitnessClassRepository.removeClass(classId);
-        if (removeSuccess) return ResponseEntity.ok().body("Class removed successfully");
+        if (removeSuccess) return ResponseEntity.ok().body("Success");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Class not found or remove failed");
     }
 
@@ -81,7 +82,14 @@ public class FitnessClassService {
 
     public ResponseEntity<?> updateClassTime(Integer classId, ClassUpdateRequest classUpdate) {
         boolean updateSuccess = fitnessClassRepository.updateClassTime(classId, classUpdate);
-        if (updateSuccess) return ResponseEntity.ok().body("Class time updated successfully");
+        if (updateSuccess) return ResponseEntity.ok(Map.of("message", "Success"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Class not found or update failed");
+    }
+
+    public ResponseEntity<?> updateClass(Integer classId, ClassUpdateRequest classUpdate) {
+        boolean updateSuccess = fitnessClassRepository.updateClass(classId, classUpdate);
+        System.out.println(updateSuccess);
+        if (updateSuccess) return ResponseEntity.ok(Map.of("message", "Success"));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Class not found or update failed");
     }
 
