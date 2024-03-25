@@ -41,5 +41,8 @@ export const API_ENDPOINTS = {
     updateClass: (classId) => `${BASE_URL}/admin/classes/update/${classId}`,
     addClass: () => `${BASE_URL}/admin/classes/add`,
     deleteClass: (classId) => `${BASE_URL}/admin/classes/delete/${classId}`,
-    getRooms: () => `${BASE_URL}/admin/rooms`
+    getRooms: () => `${BASE_URL}/admin/rooms`,
+    getAllInvoices: () => `${BASE_URL}/admin/invoices`,
+    getProcessingInvoices: () => `${BASE_URL}/admin/invoices/processing`,
+    processInvoice: (paymentId) => `${BASE_URL}/admin/invoices/${paymentId}`
   };

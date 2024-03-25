@@ -24,3 +24,18 @@ export const deleteClass = (classId) => {
     const url = ADMIN_API_ENDPOINTS.deleteClass(classId);
     return del(url);
 }
+
+export const getAllInvoices = () => {
+    const url = ADMIN_API_ENDPOINTS.getAllInvoices();
+    return get(url);
+}
+
+export const getProcessingInvoices = () => {
+    const url = ADMIN_API_ENDPOINTS.getProcessingInvoices();
+    return get(url);
+}
+
+export const processInvoice = (paymentId) => {
+    const url = ADMIN_API_ENDPOINTS.processInvoice(paymentId);
+    return put(url);
+}

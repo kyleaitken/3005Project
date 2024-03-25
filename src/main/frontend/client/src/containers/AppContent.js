@@ -13,6 +13,7 @@ import MemberInvoices from "./MemberInvoices";
 import MemberHealthInfo from "./MemberHealthInfo";
 import MemberProfile from "./MemberProfile";
 import AdminClassContainer from "./AdminClassContainer";
+import AdminInvoiceContainer from "./AdminInvoiceContainer";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -35,6 +36,7 @@ const AppContent = () => {
                 <Route path="/healthInfo" element={<MemberHealthInfo/>} />
                 <Route path="/profile" element={<MemberProfile />} />
                 <Route path="/adminClasses" element={<AdminClassContainer />} />
+                <Route path="/adminInvoices" element={<AdminInvoiceContainer />} />
             </Routes>
         </AppContentView>
     )

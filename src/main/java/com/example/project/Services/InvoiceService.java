@@ -51,7 +51,7 @@ public class InvoiceService {
 
     public ResponseEntity<?> processInvoice(Integer paymentId) {
         boolean invoiceProcessed = invoiceRepository.processInvoice(paymentId);
-        if (invoiceProcessed) return ResponseEntity.ok().body("Invoice processed successfully");
+        if (invoiceProcessed) return ResponseEntity.ok().body("Success");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invoice not found or update failed");
     }
 
