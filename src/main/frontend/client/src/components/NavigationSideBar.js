@@ -28,8 +28,8 @@ const NavigationSideBar = () => {
   return (
     <SideBarContainer>
       <StyledLink to="/schedule">Schedule</StyledLink>
-      <StyledLink to="/sessions">Manage Sessions</StyledLink>
-      <StyledLink to="/classes">Manage Classes</StyledLink>
+      <StyledLink to="/sessions">Your Sessions</StyledLink>
+      <StyledLink to="/classes">Your Classes</StyledLink>
       <StyledLink to="/joinClass">Join a Class</StyledLink>
       <StyledLink to="/routines">Exercise Routines</StyledLink>
       <StyledLink to="/goals">Goals</StyledLink>

@@ -31,7 +31,7 @@ public class AdminRepository {
             if (resultSet.next()) {
                 return Optional.of(adminRowMapper().mapRow(resultSet, 1));
             } else {
-                System.out.println("No Trainer found with email: " + email);
+                System.out.println("No Admin found with email: " + email);
             }
         }
         } catch (SQLException e) {

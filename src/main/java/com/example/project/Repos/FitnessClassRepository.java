@@ -197,7 +197,9 @@ public class FitnessClassRepository {
                     "FROM FitnessClass FC " +
                     "JOIN Trainers T ON FC.trainer_id = T.trainer_id " +
                     "JOIN Room ON FC.room_id = Room.room_id " +
-                    "ORDER BY FC.date DESC, FC.time DESC";
+                    "WHERE (FC.date > CURRENT_DATE OR " +
+                    "(FC.date = CURRENT_DATE AND FC.time > EXTRACT(HOUR FROM CURRENT_TIME)::INT)) " +
+                    "ORDER BY FC.date ASC, FC.time ASC";
 
         List<FitnessClassView> fitnessClasses = new ArrayList<>();
 
@@ -270,12 +272,19 @@ public class FitnessClassRepository {
     public ResponseEntity<Object> addClass(AddClassRequest newClass) {
         String sql = "SELECT insert_fitness_class((SELECT trainer_id " + 
             "FROM trainers WHERE name = ?), ?, ?, ?, (SELECT room_id FROM Room where room_name = ?))";
+
+        System.out.println(newClass.getTrainerName());
+        System.out.println(newClass.getClassName());
+        System.out.println(newClass.getDate());
+        System.out.println(newClass.getTime());
+        System.out.println(newClass.getRoomName());
+
     
         try {
             jdbcTemplate.query(sql, new Object[]{newClass.getTrainerName(), 
                 java.sql.Date.valueOf(newClass.getDate()), newClass.getTime(), newClass.getClassName(), newClass.getRoomName()},
                 rs -> null); 
-            return ResponseEntity.ok().body("Class successfully added.");
+                return ResponseEntity.ok().body("{\"message\": \"Success\"}");
         } catch (UncategorizedSQLException e) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
@@ -290,6 +299,27 @@ public class FitnessClassRepository {
         try {
             int affectedRows = jdbcTemplate.update(sql, java.sql.Date.valueOf(classUpdate.getDate()), 
             classUpdate.getTime(), classId);
+            return affectedRows > 0;
+        } catch (DuplicateKeyException e) {
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        
+    }
+
+
+    public boolean updateClass(Integer classId, ClassUpdateRequest classUpdate) {
+        String sql = "UPDATE FitnessClass SET name = ?, trainer_id = ?, date = ?, time = ?, room_id = ? WHERE class_id = ?";
+
+        try {
+            int affectedRows = jdbcTemplate.update(sql, classUpdate.getClassName(), 
+                                                        classUpdate.getTrainerId(),
+                                                        java.sql.Date.valueOf(classUpdate.getDate()), 
+                                                        classUpdate.getTime(),
+                                                        classUpdate.getRoomId(),
+                                                        classId);
+
             return affectedRows > 0;
         } catch (DuplicateKeyException e) {
             return false;

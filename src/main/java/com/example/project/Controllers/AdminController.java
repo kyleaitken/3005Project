@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.Models.Equipment;
 import com.example.project.Models.Invoice;
+import com.example.project.Models.Room;
 import com.example.project.Repos.EquipmentRepository;
+import com.example.project.Repos.RoomRepository;
 import com.example.project.Services.FitnessClassService;
 import com.example.project.Services.InvoiceService;
 import com.example.project.dto.AddClassRequest;
@@ -28,12 +30,25 @@ public class AdminController {
     FitnessClassService fitnessClassService;
     InvoiceService invoiceService;
     EquipmentRepository equipmentRepository;
+    RoomRepository roomRepository;
 
-    public AdminController(FitnessClassService fitnessClassService, InvoiceService invoiceService, EquipmentRepository equipmentRepository) {
+    public AdminController(FitnessClassService fitnessClassService, InvoiceService invoiceService, EquipmentRepository equipmentRepository, RoomRepository roomRepository) {
         this.fitnessClassService = fitnessClassService;
         this.invoiceService = invoiceService;
         this.equipmentRepository = equipmentRepository;
+        this.roomRepository = roomRepository;
     }
+
+    /*
+     * ** ROOMS
+     */
+
+    @GetMapping("/rooms")
+    public ResponseEntity<List<Room>> getRooms() {
+       List<Room> rooms = roomRepository.getRooms();
+       return ResponseEntity.ok(rooms);
+    }
+
 
     /*
      * *** CLASSES ****
@@ -56,8 +71,13 @@ public class AdminController {
         return fitnessClassService.updateClassRoom(classId, newRoomId);
     }
 
+    @PutMapping("/classes/update/{classId}")
+    public ResponseEntity<?> updateClass(@PathVariable Integer classId, @RequestBody ClassUpdateRequest classUpdate) {
+        return fitnessClassService.updateClass(classId, classUpdate);
+    }
+
     // delete class
-    @DeleteMapping("/classes/{classId}")
+    @DeleteMapping("/classes/delete/{classId}")
     public ResponseEntity<?> removeFitnessClass(@PathVariable Integer classId) {
         return fitnessClassService.removeClass(classId);
     }

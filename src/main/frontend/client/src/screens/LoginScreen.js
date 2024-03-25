@@ -9,12 +9,17 @@ const LoginScreen = () => {
     const navigate  = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const {userType} = useAuth();
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigate('/schedule');
+          if (userType === "Member")      {
+              navigate('/schedule');
+          } else if (userType === "Admin") {
+              navigate('/adminClasses');
+          }
         }
-    }, [isLoggedIn, navigate]); 
+    }, [isLoggedIn, navigate, userType]); 
 
     const handleFormSubmit = async (event) => {
         event.preventDefault(); 
@@ -29,6 +34,12 @@ const LoginScreen = () => {
             if (loginResponse.type === "Member") {
                 navigate('/schedule'); 
             }
+            if (loginResponse.type === "Admin") {
+                navigate('/adminClasses')
+            } 
+            // if (loginResponse.type === "Trainer") {
+
+            // }
         }
     };
 
@@ -65,6 +76,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   padding: 20px;
 
   input {

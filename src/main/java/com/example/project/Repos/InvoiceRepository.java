@@ -17,7 +17,7 @@ import com.example.project.Models.Invoice;
 
 @Repository
 public class InvoiceRepository {
-        private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public InvoiceRepository(JdbcTemplate jdbcTemplate) {
