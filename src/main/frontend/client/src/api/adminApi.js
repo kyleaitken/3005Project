@@ -39,3 +39,13 @@ export const processInvoice = (paymentId) => {
     const url = ADMIN_API_ENDPOINTS.processInvoice(paymentId);
     return put(url);
 }
+
+export const getEquipment = () => {
+    const url = ADMIN_API_ENDPOINTS.getEquipment();
+    return get(url);
+}
+
+export const repairEquipment = (equipmentId) => {
+    const url = ADMIN_API_ENDPOINTS.repairEquipment(equipmentId);
+    return put(url);
+}

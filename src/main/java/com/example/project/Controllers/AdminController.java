@@ -116,10 +116,10 @@ public class AdminController {
         return equipmentRepository.getEquipment(); 
     }
 
-    @PutMapping("/equipment/{equipmentId}")
+    @PutMapping("/equipment/repair/{equipmentId}")
     public ResponseEntity<?> repairEquipment(@PathVariable Integer equipmentId) {
         boolean repaired = equipmentRepository.repairEquipment(equipmentId);
-        if (repaired) return ResponseEntity.ok().body("Equipment repaired");
+        if (repaired) return ResponseEntity.ok().body("Success");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Equipment not found or repair failed");
     }
 }
