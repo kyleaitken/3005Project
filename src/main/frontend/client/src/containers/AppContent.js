@@ -17,6 +17,7 @@ import AdminInvoiceContainer from "./AdminInvoiceContainer";
 import EquipmentContainer from "./EquipmentContainer";
 import TrainerSchedule from "./TrainerSchedule";
 import TrainerMembersView from "./TrainerMembersView";
+import RegisterScreen from "../screens/RegisterScreen";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TrainerNavigationBar from "../components/TrainerNavigationBar";
 
@@ -32,6 +33,7 @@ const AppContent = () => {
             {isLoggedIn && userType ==="Trainer" && <TrainerNavigationBar />} 
             <Routes>
                 <Route path="/" element={<LoginScreen />} />
+                <Route path="/register" element={<RegisterScreen />} />
                 <Route path="/schedule" element={<MemberSchedule />} />
                 <Route path="/sessions" element={<MemberSessions />} />
                 <Route path="/classes" element={<MemberClasses />} />

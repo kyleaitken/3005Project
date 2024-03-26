@@ -10,13 +10,13 @@ import com.example.project.Services.TrainingSessionService;
 import com.example.project.dto.FitnessClassView;
 import com.example.project.dto.MemberScheduleView;
 import com.example.project.dto.MemberTrainingSessionView;
+import com.example.project.dto.RegisterMemberRequest;
 import com.example.project.dto.TrainingSessionRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.Map;
@@ -60,15 +60,8 @@ public class MemberController {
     }
 
 	@PostMapping("/register")
-	public ResponseEntity<?> registerMember(@RequestBody Member member) {
-		try {
-			Member savedMember = memberService.registerMember(member);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
-		} catch (DataIntegrityViolationException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Email already in use.");
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration.");
-		}
+	public ResponseEntity<?> registerMember(@RequestBody RegisterMemberRequest member) {
+        return memberService.registerMember(member); 
 	}
 
     // Update an existing member's information

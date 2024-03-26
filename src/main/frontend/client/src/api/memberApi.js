@@ -145,3 +145,8 @@ export const getMemberProfile = (memberId) => {
 export const updateMemberProfile = (memberId, profileInfo) => {
     return putWithBody(API_ENDPOINTS.updateMemberProfile(memberId), profileInfo);
 };
+
+export const registerMember = (memberInfo) => {
+    console.log('api', memberInfo);
+    return post(API_ENDPOINTS.registerMember(), memberInfo);
+}
