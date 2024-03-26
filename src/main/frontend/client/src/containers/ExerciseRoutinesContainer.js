@@ -3,6 +3,7 @@ import { getExerciseRoutines,
         deleteExerciseRoutine, 
         addExerciseToRoutine,
         removeExerciseFromRoutine } from "../api/memberApi";
+import {sendExerciseRecommendationRequest} from "../api/LLMApi";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from 'react-router-dom';
@@ -13,15 +14,23 @@ import AddExerciseForm from "../components/AddExerciseForm";
 
 const ExerciseRoutinesContainer = () => {
     const [routines, setRoutines] = useState(null);
+    const [exerciseSuggestion, setExerciseSuggestion] = useState('');
     const {userId} = useAuth();
+
+    const fetchExerciseSuggestion = useCallback(async (fetchedRoutines) => {
+        if (!fetchedRoutines) return; 
+        const exercisesResponse = await sendExerciseRecommendationRequest(fetchedRoutines);
+        setExerciseSuggestion(exercisesResponse);
+    }, [])
 
     const getRoutines = useCallback(async () => {
         if (userId) {
             const routinesResponse = await getExerciseRoutines(userId);
             console.log(routinesResponse);
             setRoutines(routinesResponse);
+            fetchExerciseSuggestion(routinesResponse);
         }
-    }, [userId]);
+    }, [userId, fetchExerciseSuggestion]);
 
 
     useEffect(() => {
@@ -36,7 +45,6 @@ const ExerciseRoutinesContainer = () => {
     const addNewRoutine = async () => {
         try {
             const addRoutineResponse = await addExerciseRoutine(userId);
-            console.log(addRoutineResponse);
             if (addRoutineResponse.message === "Success") {
                 getRoutines(userId);
             }
@@ -49,7 +57,6 @@ const ExerciseRoutinesContainer = () => {
         try {
             const response = await deleteExerciseRoutine(userId, routineId);
             if (response === "Success") {
-                console.log('deleted');
                 getRoutines(userId);
             }
         } catch {
@@ -58,7 +65,6 @@ const ExerciseRoutinesContainer = () => {
     }
 
     const handleAddExerciseToRoutine = async (routineNum, exerciseName, sets, reps, duration, weight) => {
-        console.log(routineNum, exerciseName, sets, reps, duration, weight);
         if (routines && routines.length >= routineNum) {
             const routineId = routines[routineNum - 1].routineId; 
 
@@ -82,7 +88,6 @@ const ExerciseRoutinesContainer = () => {
         try {
             const res = await removeExerciseFromRoutine(userId, logId);
             if (res === "Success") {
-                console.log('exercise removed');
                 getRoutines(userId);
             } else {
                 window.alert("Unable to remove exercise")
@@ -91,6 +96,16 @@ const ExerciseRoutinesContainer = () => {
             window.alert("Unable to remove exercise")
         }
     }
+
+    const ExerciseRecommendation = ({suggestion}) => {
+        return (
+            <SuggestionView>
+            {suggestion && <h3>Suggestion</h3>}
+            <p>{suggestion}</p>
+            </SuggestionView>
+        )
+    }
+
 
     return (
         <RoutinesView>
@@ -101,7 +116,12 @@ const ExerciseRoutinesContainer = () => {
                 handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine} 
                 routines={routines}
             />
-            <AddExerciseForm handleAddExerciseToRoutine={handleAddExerciseToRoutine}/>
+            <AddExerciseSection>
+                <AddExerciseForm handleAddExerciseToRoutine={handleAddExerciseToRoutine}/>
+                <RecommendationView>
+                {routines && routines.length > 0 && <ExerciseRecommendation suggestion={exerciseSuggestion} />}
+                </RecommendationView>
+            </AddExerciseSection>
         </RoutinesView>
     )
 }
@@ -134,3 +154,18 @@ const AddRoutineButton = styled.button`
       background-color: #0056b3;
   }
 `;
+
+const AddExerciseSection = styled.div`
+  display: flex;
+`
+
+const RecommendationView = styled.div`
+  margin-left: 200px;
+  width: 400px;
+  align-self: center;
+`
+
+const SuggestionView = styled.div`
+  display: flex;
+  flex-direction: column;
+`
