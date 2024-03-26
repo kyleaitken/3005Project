@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.project.Models.Trainer;
 import com.example.project.Services.TrainerService;
 import com.example.project.dto.TrainerMemberProfileView;
 import com.example.project.dto.TrainerMemberView;
@@ -26,6 +27,11 @@ public class TrainerController {
 
     public TrainerController(TrainerService trainerservice) {
         this.trainerservice = trainerservice;
+    }
+
+    @GetMapping("/{trainerId}")
+    public Optional<Trainer> getTrainer(@PathVariable Integer trainerId) {
+        return trainerservice.getTrainer(trainerId);
     }
 
     @PutMapping("/{trainerId}/schedule")

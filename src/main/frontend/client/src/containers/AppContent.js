@@ -15,7 +15,9 @@ import MemberProfile from "./MemberProfile";
 import AdminClassContainer from "./AdminClassContainer";
 import AdminInvoiceContainer from "./AdminInvoiceContainer";
 import EquipmentContainer from "./EquipmentContainer";
+import TrainerSchedule from "./TrainerSchedule";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TrainerNavigationBar from "../components/TrainerNavigationBar";
 
 
 
@@ -24,7 +26,9 @@ const AppContent = () => {
 
     return (
         <AppContentView>
-            {isLoggedIn && userType ==="Member" ? <NavigationSideBar /> : <AdminNavigationSideBar />}
+            {isLoggedIn && userType ==="Member" && <NavigationSideBar />} 
+            {isLoggedIn && userType ==="Admin" && <AdminNavigationSideBar />} 
+            {isLoggedIn && userType ==="Trainer" && <TrainerNavigationBar />} 
             <Routes>
                 <Route path="/" element={<LoginScreen />} />
                 <Route path="/schedule" element={<MemberSchedule />} />
@@ -39,6 +43,8 @@ const AppContent = () => {
                 <Route path="/adminClasses" element={<AdminClassContainer />} />
                 <Route path="/adminInvoices" element={<AdminInvoiceContainer />} />
                 <Route path="/equipment" element={<EquipmentContainer/>} />
+                <Route path="/trainerSchedule" element={<TrainerSchedule />} />
+                {/* <Route path="/trainerMembers" element={<EquipmentContainer/>} /> */}
             </Routes>
         </AppContentView>
     )

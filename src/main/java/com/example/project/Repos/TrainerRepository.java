@@ -45,6 +45,24 @@ public class TrainerRepository {
         return Optional.empty();
     }
 
+    public Optional<Trainer> getTrainer(Integer trainerId) {
+        String sql = "SELECT * FROM Trainers WHERE trainer_id = ?";
+        try (Connection connection = jdbcTemplate.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setInt(1, trainerId);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                return Optional.of(trainerRowMapper().mapRow(resultSet, 1));
+            } else {
+                System.out.println("No Trainer found");
+            }
+        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     public boolean updateSchedule(Integer trainerId, TrainerScheduleUpdateRequest newSched) {
         System.out.println("trainer update in repo");
         String sql = "UPDATE Trainers SET start_time = ?, end_time = ? WHERE trainer_id = ?";

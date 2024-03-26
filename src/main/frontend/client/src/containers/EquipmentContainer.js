@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from 'react-router-dom';
 import { getEquipment, repairEquipment } from "../api/adminApi";
 
 const EquipmentContainer = () => {
     const [equipment, setEquipment] = useState([]);
-    const { userType } = useAuth();
+    const { userId, userType } = useAuth();
 
     const loadEquipment = useCallback(async (type) => {
         if (!userType === "Admin") return;
@@ -31,6 +32,11 @@ const EquipmentContainer = () => {
             window.alert("Unable to repair equipment");
         }
     }, [loadEquipment])
+
+    if (!userId || userType !== "Admin") {
+        console.log("re-routing to login screen")
+        return <Navigate to="/" replace />;
+    }
 
     return (
         <Container>

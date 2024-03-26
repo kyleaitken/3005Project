@@ -36,7 +36,7 @@ export const API_ENDPOINTS = {
   };
 
 
-  export const ADMIN_API_ENDPOINTS = {
+export const ADMIN_API_ENDPOINTS = {
     getAllClasses: () => `${BASE_URL}/admin/classes`,
     updateClass: (classId) => `${BASE_URL}/admin/classes/update/${classId}`,
     addClass: () => `${BASE_URL}/admin/classes/add`,
@@ -47,4 +47,12 @@ export const API_ENDPOINTS = {
     processInvoice: (paymentId) => `${BASE_URL}/admin/invoices/${paymentId}`,
     getEquipment: () => `${BASE_URL}/admin/equipment`,
     repairEquipment: (equipmentId) => `${BASE_URL}/admin/equipment/repair/${equipmentId}`
-  };
+};
+
+export const TRAINER_API_ENDPOINTS = {
+  getTrainer: (trainerId) => `${BASE_URL}/trainers/${trainerId}`,
+  getUpcomingSessions: (trainerId) => `${BASE_URL}/trainers/${trainerId}/upcomingSessions`,
+  getPastSessions: (trainerId) => `${BASE_URL}/trainers/${trainerId}/pastSessions`,
+  deleteSession: (sessionId) => `${BASE_URL}/trainers/deleteSession/${sessionId}`,
+  updateSchedule: (trainerId) => `${BASE_URL}/trainers/${trainerId}/schedule`
+}

@@ -17,6 +17,8 @@ const LoginScreen = () => {
               navigate('/schedule');
           } else if (userType === "Admin") {
               navigate('/adminClasses');
+          } else {
+            navigate('/trainerSchedule')
           }
         }
     }, [isLoggedIn, navigate, userType]); 
@@ -37,9 +39,9 @@ const LoginScreen = () => {
             if (loginResponse.type === "Admin") {
                 navigate('/adminClasses')
             } 
-            // if (loginResponse.type === "Trainer") {
-
-            // }
+            if (loginResponse.type === "Trainer") {
+                navigate('/trainerSchedule')
+            }
         }
     };
 

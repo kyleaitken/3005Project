@@ -1,12 +1,14 @@
 package com.example.project.Services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.project.Models.Trainer;
 import com.example.project.Repos.MemberRepository;
 import com.example.project.Repos.TrainerRepository;
 import com.example.project.Repos.TrainingSessionRepository;
@@ -29,7 +31,7 @@ public class TrainerService {
 
     public ResponseEntity<?> updateSchedule(Integer trainerId, TrainerScheduleUpdateRequest newSched) {
         boolean scheduleUpdated = trainerRepository.updateSchedule(trainerId, newSched);
-        if (scheduleUpdated) return ResponseEntity.ok().body("Trainer schedule updated");
+        if (scheduleUpdated) return ResponseEntity.ok(Map.of("message", "Success"));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found or update failed");
     }
 
@@ -43,7 +45,7 @@ public class TrainerService {
 
     public ResponseEntity<?> deleteSession(Integer sessionId) {
         boolean sessionDeleted = trainingSessionRepository.deleteSession(sessionId);
-        if (sessionDeleted) return ResponseEntity.ok().body("Training session deleted");
+        if (sessionDeleted) return ResponseEntity.ok().body("Success");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Session not found or unsuccessful delete");
     }
 
@@ -53,6 +55,10 @@ public class TrainerService {
 
     public Optional<TrainerMemberProfileView> getMember(Integer memberId) {
         return memberRepository.getMemberProfileForTrainer(memberId);
+    }
+
+    public Optional<Trainer> getTrainer(Integer memberId) {
+        return trainerRepository.getTrainer(memberId);
     }
 
 }

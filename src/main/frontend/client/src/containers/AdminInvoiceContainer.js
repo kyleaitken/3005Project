@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from 'react-router-dom';
 import { getAllInvoices, getProcessingInvoices, processInvoice } from "../api/adminApi";
 
 const AdminInvoiceContainer = () => {
     const [currentType, setCurrentType] = useState("all"); 
     const [invoices, setInvoices] = useState([]);
-    const { userType } = useAuth();
+    const { userId, userType } = useAuth();
 
     // Function to load invoices based on type
     const loadInvoices = useCallback(async (type) => {
@@ -23,7 +24,6 @@ const AdminInvoiceContainer = () => {
             default:
                 fetchedInvoices = [];
         }
-        console.log('return invoices', fetchedInvoices);
         setInvoices(fetchedInvoices);
     }, [userType]);
 
@@ -35,6 +35,7 @@ const AdminInvoiceContainer = () => {
     useEffect(() => {
         loadInvoices(currentType);
     }, [currentType, loadInvoices]);
+
 
     const tryProcessInvoice = useCallback(async (paymentId) => {
         console.log('process invoice: ', paymentId)
@@ -49,6 +50,11 @@ const AdminInvoiceContainer = () => {
             window.alert("Unable to process invoice");
         }
     }, [currentType, loadInvoices])
+
+    if (!userId || userType !== "Admin") {
+        console.log("re-routing to login screen")
+        return <Navigate to="/" replace />;
+    }
 
     return (
         <Container>
