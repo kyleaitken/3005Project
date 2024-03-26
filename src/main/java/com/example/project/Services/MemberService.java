@@ -4,6 +4,7 @@ import com.example.project.Models.Member;
 import com.example.project.Repos.MemberRepository;
 import com.example.project.Repos.TrainerRepository;
 import com.example.project.dto.MemberScheduleView;
+import com.example.project.dto.RegisterMemberRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,12 @@ public class MemberService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Member registerMember(Member member) {
+    public ResponseEntity<?> registerMember(RegisterMemberRequest member) {
         String hashedPassword = encoder.encode(member.getPassword());
 		member.setPassword(hashedPassword);
-        memberRepository.save(member);
-        return member;
+        boolean registered = memberRepository.save(member);
+        if (registered) return ResponseEntity.ok(Map.of("message", "Success"));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed"));
     }
 
     public List<Member> findAllMembers() {

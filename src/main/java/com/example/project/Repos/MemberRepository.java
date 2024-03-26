@@ -5,6 +5,7 @@ import com.example.project.Models.Member;
 import com.example.project.dto.FitnessClassView;
 import com.example.project.dto.MemberScheduleView;
 import com.example.project.dto.MemberTrainingSessionView;
+import com.example.project.dto.RegisterMemberRequest;
 import com.example.project.dto.TrainerMemberProfileView;
 import com.example.project.dto.TrainerMemberView;
 
@@ -58,12 +59,13 @@ public class MemberRepository {
         }
     }
 
-    public void save(Member member) {
+    public boolean save(RegisterMemberRequest member) {
         String sql = "INSERT INTO Members (email, password, first_name, last_name, birth_date, phone, address, emergency_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
-        jdbcTemplate.update(sql, member.getEmail(), member.getPassword(), member.getFirstName(),
+        int affectedRows = jdbcTemplate.update(sql, member.getEmail(), member.getPassword(), member.getFirstName(),
             member.getLastName(), java.sql.Date.valueOf(member.getBirthDate()), 
             member.getPhone(), member.getAddress(), member.getEmergencyPhone());
+        return affectedRows > 0;
     }
 
     public boolean update(Member member) {

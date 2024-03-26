@@ -23,6 +23,11 @@ const LoginScreen = () => {
         }
     }, [isLoggedIn, navigate, userType]); 
 
+    const handleRegisterClicked = () => {
+      console.log('register clicked');
+      navigate('/register')
+    }
+
     const handleFormSubmit = async (event) => {
         event.preventDefault(); 
         const loginResponse = await attemptLogin(email, password);
@@ -65,7 +70,7 @@ const LoginScreen = () => {
                     />
                     <button type="submit">Login</button>
                     <h2>New to SAL?</h2>
-                    <button type="button">Register</button> 
+                    <button onClick={() => handleRegisterClicked()} type="button">Register</button> 
                 </FormView>
         </LoginContainer>
     );

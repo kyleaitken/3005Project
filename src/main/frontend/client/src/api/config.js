@@ -2,6 +2,7 @@ const BASE_URL = 'http://localhost:8080';
 
 export const API_ENDPOINTS = {
     login: `${BASE_URL}/auth/login`,
+    registerMember: () => `${BASE_URL}/members/register`,
     memberSchedule: (memberId) => `${BASE_URL}/members/${memberId}/schedule`,
     getAvailableTrainers: () => `${BASE_URL}/members/getTrainers`,
     getMemberUpcomingSessions: (memberId) => `${BASE_URL}/members/${memberId}/futureSessions`,
