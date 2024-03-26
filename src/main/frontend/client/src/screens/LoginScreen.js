@@ -65,7 +65,7 @@ const LoginScreen = () => {
                     />
                     <button type="submit">Login</button>
                     <h2>New to SAL?</h2>
-                    <button type="button">Register</button> {/* Placeholder for now */}
+                    <button type="button">Register</button> 
                 </FormView>
         </LoginContainer>
     );

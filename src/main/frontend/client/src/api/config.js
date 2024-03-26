@@ -54,5 +54,7 @@ export const TRAINER_API_ENDPOINTS = {
   getUpcomingSessions: (trainerId) => `${BASE_URL}/trainers/${trainerId}/upcomingSessions`,
   getPastSessions: (trainerId) => `${BASE_URL}/trainers/${trainerId}/pastSessions`,
   deleteSession: (sessionId) => `${BASE_URL}/trainers/deleteSession/${sessionId}`,
-  updateSchedule: (trainerId) => `${BASE_URL}/trainers/${trainerId}/schedule`
+  updateSchedule: (trainerId) => `${BASE_URL}/trainers/${trainerId}/schedule`,
+  getMembers: () => `${BASE_URL}/trainers/members`,
+  getMember: (memberId) => `${BASE_URL}/trainers/members/${memberId}`,
 }
