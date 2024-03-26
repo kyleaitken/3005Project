@@ -16,6 +16,7 @@ import AdminClassContainer from "./AdminClassContainer";
 import AdminInvoiceContainer from "./AdminInvoiceContainer";
 import EquipmentContainer from "./EquipmentContainer";
 import TrainerSchedule from "./TrainerSchedule";
+import TrainerMembersView from "./TrainerMembersView";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TrainerNavigationBar from "../components/TrainerNavigationBar";
 
@@ -44,7 +45,7 @@ const AppContent = () => {
                 <Route path="/adminInvoices" element={<AdminInvoiceContainer />} />
                 <Route path="/equipment" element={<EquipmentContainer/>} />
                 <Route path="/trainerSchedule" element={<TrainerSchedule />} />
-                {/* <Route path="/trainerMembers" element={<EquipmentContainer/>} /> */}
+                <Route path="/trainerMembers" element={<TrainerMembersView/>} />
             </Routes>
         </AppContentView>
     )

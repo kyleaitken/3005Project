@@ -24,3 +24,13 @@ export const deleteSession = (sessionId) => {
 export const updateSchedule = (trainerId, scheduleInfo) => {
     return putWithBody(TRAINER_API_ENDPOINTS.updateSchedule(trainerId), scheduleInfo);
 };
+
+export const getMembers = () => {
+    const url = TRAINER_API_ENDPOINTS.getMembers();
+    return get(url);
+};
+
+export const getMember = (memberId) => {
+    const url = TRAINER_API_ENDPOINTS.getMember(memberId);
+    return get(url);
+};
