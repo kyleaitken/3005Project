@@ -2,7 +2,8 @@ const OpenAI = require("openai");
 
 
 export const sendExerciseRecommendationRequest = async (exercises) => {
-    const openai = new OpenAI({apiKey: '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', dangerouslyAllowBrowser: true}); 
+    // enter your openAI API key here to use this feature
+    const openai = new OpenAI({apiKey: '', dangerouslyAllowBrowser: true}); 
 
     const prompt = exercises.map((routine, index) => {
         const exercisesList = routine.exercises.map(exercise =>
