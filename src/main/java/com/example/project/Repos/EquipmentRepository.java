@@ -52,4 +52,15 @@ public class EquipmentRepository {
         }
 
     }
+
+    public boolean reportEquipmentBroken(Integer equipmentId) {
+        String sql = "UPDATE Equipment SET needs_repair = TRUE where equipment_id = ?";
+        try {
+            int affectedRows = jdbcTemplate.update(sql, equipmentId);
+            return affectedRows > 0;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

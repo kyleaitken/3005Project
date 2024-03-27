@@ -122,4 +122,11 @@ public class AdminController {
         if (repaired) return ResponseEntity.ok().body("Success");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Equipment not found or repair failed");
     }
+
+    @PutMapping("/equipment/reportBroken/{equipmentId}")
+    public ResponseEntity<?> reportEquipmentBroken(@PathVariable Integer equipmentId) {
+        boolean equipmentUpdated = equipmentRepository.reportEquipmentBroken(equipmentId);
+        if (equipmentUpdated) return ResponseEntity.ok().body("Success");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed");
+    }
 }

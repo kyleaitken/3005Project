@@ -49,3 +49,8 @@ export const repairEquipment = (equipmentId) => {
     const url = ADMIN_API_ENDPOINTS.repairEquipment(equipmentId);
     return put(url);
 }
+
+export const reportEquipmentBroken = (equipmentId) => {
+    const url = ADMIN_API_ENDPOINTS.reportEquipmentBroken(equipmentId);
+    return put(url);
+}

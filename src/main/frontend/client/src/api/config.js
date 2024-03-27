@@ -47,7 +47,8 @@ export const ADMIN_API_ENDPOINTS = {
     getProcessingInvoices: () => `${BASE_URL}/admin/invoices/processing`,
     processInvoice: (paymentId) => `${BASE_URL}/admin/invoices/${paymentId}`,
     getEquipment: () => `${BASE_URL}/admin/equipment`,
-    repairEquipment: (equipmentId) => `${BASE_URL}/admin/equipment/repair/${equipmentId}`
+    repairEquipment: (equipmentId) => `${BASE_URL}/admin/equipment/repair/${equipmentId}`,
+    reportEquipmentBroken: (equipmentId) => `${BASE_URL}/admin/equipment/reportBroken/${equipmentId}`
 };
 
 export const TRAINER_API_ENDPOINTS = {

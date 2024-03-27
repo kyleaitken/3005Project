@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from 'react-router-dom';
-import { getEquipment, repairEquipment } from "../api/adminApi";
+import { getEquipment, repairEquipment, reportEquipmentBroken } from "../api/adminApi";
 
 const EquipmentContainer = () => {
     const [equipment, setEquipment] = useState([]);
@@ -20,7 +20,6 @@ const EquipmentContainer = () => {
     }, [loadEquipment]);
 
     const tryRepairEquipment = useCallback(async (equipmentId) => {
-        console.log('repair equipment: ', equipmentId)
         try {
             const res = await repairEquipment(equipmentId);
             if (res === "Success") {
@@ -30,6 +29,20 @@ const EquipmentContainer = () => {
             }
         } catch {
             window.alert("Unable to repair equipment");
+        }
+    }, [loadEquipment])
+
+
+    const trySetEquipmentBroken = useCallback(async (equipmentId) => {
+        try {
+            const res = await reportEquipmentBroken(equipmentId);
+            if (res === "Success") {
+                loadEquipment();
+            } else {
+                window.alert("Unable to set equipment broken");
+            }
+        } catch {
+            window.alert("Unable to repair equipment broken");
         }
     }, [loadEquipment])
 
@@ -50,6 +63,8 @@ const EquipmentContainer = () => {
                 </ColumnHeader>
                 <ColumnHeader>
                 </ColumnHeader>
+                <ColumnHeader>
+                </ColumnHeader>
             </ColumnHeaders>
             <EquipmentList>
                 {equipment.map((item, index) => (
@@ -63,6 +78,10 @@ const EquipmentContainer = () => {
                         <EquipmentItem>
                         {item.needsRepair  && 
                         <RepairButton onClick={() => tryRepairEquipment(item.equipmentId)}>Set Repaired</RepairButton>}
+                        </EquipmentItem>
+                        <EquipmentItem>
+                        {!item.needsRepair  && 
+                        <ReportButton onClick={() => trySetEquipmentBroken(item.equipmentId)}>Set Broken</ReportButton>}
                         </EquipmentItem>
                     </EquipmentRow>
                 ))}
@@ -101,6 +120,23 @@ const EquipmentRow = styled.div`
 const RepairButton = styled.button`
     padding: 5px 10px;
     background-color: green; 
+    width: 140px;
+    align-self: flex-end;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: orange; 
+    }
+`;
+
+
+const ReportButton = styled.button`
+    padding: 5px 10px;
+    background-color: darkred; 
     width: 140px;
     align-self: flex-end;
     color: white;
